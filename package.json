@@ -16,5 +16,8 @@
   "license" : "BSD-2-Clause",
   "dependencies": {
     "nan": "^2.1.0"
+  },
+  "engines": {
+    "node" : ">=4.0.0"
   }
 }

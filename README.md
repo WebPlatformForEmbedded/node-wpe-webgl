@@ -3,6 +3,8 @@ Initializes a full-screen display which OpenGL ES2 graphics can be drawn using a
 Supported targets:
 
 Raspberry PI 1/2/3
+This module requires node 4+. Please install from nodesource (curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -).
+
 Use Raspbian or make sure that includes and libs are in /opt/vc.
 Raspbian has a default GPU memory setting of 64M, which is quite low. It may lead to 0x0505 (out of memory) errors.
 You can increase this to a higher number using raspi-config.
