@@ -1,5 +1,5 @@
 {
-  "author": "Bas van Meurs <bvanmeurs1985@gmail.com>",
+  "author": "Metrological, Bas van Meurs <b.van.meurs@metrological.com>",
   "name": "node-wpe-webgl",
   "description": "Initializes a full-screen display on the RPi on which OpenGL ES2 graphics can be drawn using a WebGL-compliant interface.",
   "version": "0.0.1",
