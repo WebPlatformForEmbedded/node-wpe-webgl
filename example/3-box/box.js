@@ -121,7 +121,7 @@ function initTexture() {
     var res = fs.readFileSync(__dirname + "/glass.png");
     glassTexture = gl.createTexture();
 
-    // Load using canvas module (install globally).
+    // Load using canvas module (please make sure that it is installed globally).
     var Canvas = require('canvas');
     var img = new Canvas.Image();
     img.src = res;
