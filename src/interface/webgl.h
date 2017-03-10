@@ -6,10 +6,10 @@
     #include <OpenGLES/ES2/glext.h>
     typedef double GLclampd;
 #else
-    #ifdef __IS_GLEW
-    #include <GL/glew.h>
+    #ifdef IS_GLEW
+      #include <GL/glew.h>
     #else
-    #include <GLES2/gl2.h>
+      #include <GLES2/gl2.h>
     #endif
 #endif
 

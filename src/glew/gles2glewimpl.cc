@@ -1,5 +1,3 @@
-#define __IS_GLEW 1
-
 #include <cstring>
 #include <vector>
 #include <iostream>

@@ -31,7 +31,8 @@
             'src/gles2platform.cc',
             'src/interface/webgl.cc'
           ],
-          'libraries': ['<!@(pkg-config --libs glfw3 glew)']
+          'libraries': ['<!@(pkg-config --libs glfw3 glew)'],
+          'defines': ['IS_GLEW']
         }],
         ['OS=="mac"', {
           'sources': [
@@ -43,17 +44,13 @@
           'include_dirs': [ '<!@(pkg-config glfw3 glew --cflags-only-I | sed s/-I//g)'],
           'libraries': [ '<!@(pkg-config --libs glfw3 glew)', '-framework OpenGL'],
           'library_dirs': ['/usr/local/lib'],
+          'defines': ['IS_GLEW']
         }],
         ['OS=="win"', {
-          'libraries': [
-            'glfw3dll.lib',
-            'glew32.lib',
-            'opengl32.lib'
-          ],
-          'defines' : [
-            'WIN32_LEAN_AND_MEAN',
-            'VC_EXTRALEAN'
-          ],
+          'include_dirs': ['<(module_root_dir)/deps/include'],
+          'library_dirs': ['<(module_root_dir)/deps/windows/lib/<(target_arch)'],
+          'libraries': ['glew32.lib','opengl32.lib'],
+          'defines' : ['IS_GLEW','WIN32_LEAN_AND_MEAN','VC_EXTRALEAN'],
           'msvs_settings' : {
             'VCCLCompilerTool' : {
               'AdditionalOptions' : ['/O2','/Oy','/GL','/GF','/Gm-','/EHsc','/MT','/GS','/Gy','/GR-','/Gd']
