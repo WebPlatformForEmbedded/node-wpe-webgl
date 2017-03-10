@@ -1,7 +1,18 @@
 #ifndef WEBGL_H_
 #define WEBGL_H_
 
-#include <GLES2/gl2.h>
+#ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
+    #include <OpenGLES/ES2/gl.h>
+    #include <OpenGLES/ES2/glext.h>
+    typedef double GLclampd;
+#else
+    #ifdef __IS_GLEW
+    #include <GL/glew.h>
+    #else
+    #include <GLES2/gl2.h>
+    #endif
+#endif
+
 
 #include "../common.h"
 

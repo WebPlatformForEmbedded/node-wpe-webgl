@@ -1,4 +1,4 @@
-var gles2 = require('../gles2');
+var gles2 = require('../../gles2');
 
 var options = {width: 1280, height: 720};
 var gl = gles2.init(options);

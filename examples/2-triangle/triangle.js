@@ -48,7 +48,7 @@ function getShader(gl, id) {
     gl.compileShader(shader);
 
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        console.error(gl.getShaderInfoLog(shader));
+        console.error('shader error', id, gl.getShaderInfoLog(shader));
         return null;
     }
 

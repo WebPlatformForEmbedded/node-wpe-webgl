@@ -1,4 +1,6 @@
+#ifdef GL_ES
 precision mediump float;
+#endif
 
 varying vec2 vTextureCoord;
 varying vec3 vLightWeighting;
