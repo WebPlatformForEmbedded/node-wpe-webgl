@@ -7,9 +7,9 @@
     typedef double GLclampd;
 #else
     #ifdef IS_GLEW
-      #include <GL/glew.h>
+    #include <GL/glew.h>
     #else
-      #include <GLES2/gl2.h>
+    #include <GLES2/gl2.h>
     #endif
 #endif
 

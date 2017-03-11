@@ -4,6 +4,7 @@
 
 #include "../gles2impl.h"
 
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 using namespace std;
@@ -27,6 +28,8 @@ string init(int width, int height) {
 
   /* Make the window's context current */
   glfwMakeContextCurrent(window);
+
+  glewInit();
 
   return string("");
 }
