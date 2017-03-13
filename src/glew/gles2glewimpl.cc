@@ -1,17 +1,29 @@
 #include <cstring>
 #include <vector>
 #include <iostream>
+#include <unistd.h>
 
 #include "../gles2impl.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include <uv.h>
+
 using namespace std;
 
 namespace gles2impl {
 
 GLFWwindow* window;
+
+
+void poll(void *arg) {
+  while(true) {
+    printf("poll\n");
+    glfwPollEvents();
+    usleep(10000); // Every 10msec.
+  }
+}
 
 string init(int width, int height, bool fullscreen, std::string title) {
   printf("initializing GLEW\n");
@@ -31,8 +43,15 @@ string init(int width, int height, bool fullscreen, std::string title) {
 
   glewInit();
 
+  // Start the events polling.
+  uv_thread_t pollThreadId;
+  int a = 0;
+  uv_thread_create(&pollThreadId, poll, &a);
+
+
   return string("");
 }
+
 
 void blit() {
   //glfwWindowShouldClose(window)?
