@@ -16,7 +16,9 @@ There are minor differences between OpenGL ES2 (WebGL) and OpenGL using GLEW.
 For more information, see: https://www.khronos.org/webgl/wiki_1_15/index.php/WebGL_and_OpenGL_Differences
 
 ## Raspberry PI
-This module requires node 4+. Please install from nodesource (curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -).
+This module requires node 4+. Please install from nodesource 
+
+    curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
 
 Use Raspbian or make sure that includes and libs are in /opt/vc.
 Raspbian has a default GPU memory setting of 64M, which is quite low. It may lead to 0x0505 (out of memory) errors.
