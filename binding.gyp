@@ -47,6 +47,12 @@
           'defines': ['IS_GLEW']
         }],
         ['OS=="win"', {
+          'sources': [
+            'src/glew/gles2glewimpl.cc',
+            'src/bindings.cc',
+            'src/gles2platform.cc',
+            'src/interface/webgl.cc'
+          ],
           'include_dirs': ['<(module_root_dir)/deps/include'],
           'library_dirs': ['<(module_root_dir)/deps/windows/lib/<(target_arch)'],
           'libraries': ['glew32.lib','opengl32.lib'],
