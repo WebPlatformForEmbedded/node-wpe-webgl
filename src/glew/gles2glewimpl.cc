@@ -16,8 +16,8 @@ namespace gles2impl {
 
 GLFWwindow* window;
 
-
 void poll(void *arg) {
+  glfwMakeContextCurrent(window);
   while(true) {
     printf("poll\n");
     glfwPollEvents();
