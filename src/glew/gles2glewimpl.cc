@@ -48,7 +48,6 @@ string init(int width, int height, bool fullscreen, std::string title) {
   int a = 0;
   uv_thread_create(&pollThreadId, poll, &a);
 
-
   return string("");
 }
 
@@ -57,7 +56,6 @@ void blit() {
   //glfwWindowShouldClose(window)?
 
   glfwSwapBuffers(window);
-  glfwPollEvents();
 }
 
 void cleanup() {
