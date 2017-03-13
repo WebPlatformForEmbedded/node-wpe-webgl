@@ -1,16 +1,55 @@
-Initializes a full-screen display which OpenGL ES2 graphics can be drawn using a WebGL-compliant interface.
+Provides a WebGL rendering context for nodejs. It is displayed in a window or fullscreen, depending on your platform.
 
-Supported targets:
+# Notes
+Because on some targets OpenGL must be used instead of OpenGL ES2, you **must** do the following in your
+shaders:
 
-Raspberry PI 1/2/3
-This module requires node 4+. Please install from nodesource (curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -).
+    #ifdef GL_ES
+    precision highp float;
+    #endif
+
+# Installation
+
+## Linux, OSX, Windows (GLEW/GLFW platforms)
+GLFW and GLEW provides us with the functionality to start a OpenGL-enabled window.
+There are minor differences between OpenGL ES2 (WebGL) and OpenGL using GLEW.
+For more information, see: https://www.khronos.org/webgl/wiki_1_15/index.php/WebGL_and_OpenGL_Differences
+
+## Raspberry PI
+This module requires node 4+. Please install from nodesource 
+
+    curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
 
 Use Raspbian or make sure that includes and libs are in /opt/vc.
 Raspbian has a default GPU memory setting of 64M, which is quite low. It may lead to 0x0505 (out of memory) errors.
 You can increase this to a higher number using raspi-config.
-Also, for best performance, please set the resolution to 720p in raspi-config.
 
-X11 (Linux)
-Installation: install packages libx11-dev and libgles2-dev.
+### Dependencies
+Linux: libglew-dev libglfw3-dev
 
-In the future, we may add support for other platforms.
+Mac OSX: ?
+
+Windows: glew32.lib opengl32.lib
+
+# Example
+    var webgl = require('node-wpe-webgl');
+
+    var options = {width: 1280, height: 720};
+    var gl = webgl.init(options);
+
+    while(true) {
+        gl.clearColor(0, 1.0, 1.0, 0.0);
+
+        // Set the viewport
+        gl.viewport( 0, 0, 1280, 720);
+
+        // Clear the color buffer
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+        // Do other GL-related stuff here.
+
+        webgl.blit();
+    }
+
+A couple of more elaborate examples can be found in the examples folder.
+
