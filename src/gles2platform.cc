@@ -3,8 +3,6 @@
 #include <iostream>
 
 #include "gles2platform.h"
-
-// We need to split this due to conflicts in X11 header files with v8 header files.
 #include "gles2impl.h"
 
 namespace gles2platform {
@@ -18,8 +16,11 @@ NAN_METHOD(init) {
 
   int width = info[0]->Int32Value();
   int height = info[1]->Int32Value();
+  bool fullscreen = info[2]->BooleanValue();
 
-  std::string message = gles2impl::init(width, height);
+  Nan::Utf8String title(info[3]->ToString());
+
+  std::string message = gles2impl::init(width, height, fullscreen, *title);
   if (message.size()) {
     Nan::ThrowRangeError(message.c_str());
   }

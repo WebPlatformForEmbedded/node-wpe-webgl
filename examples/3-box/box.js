@@ -5,7 +5,7 @@ var WebGLUtils = require('../WebGLUtils.js');
 var glMatrix = require('../gl-matrix.js');
 var mat4 = glMatrix.mat4;
 
-var options = {width: 1280, height: 720};
+var options = {width: 1280, height: 720, title: "Box"};
 var gl = gles2.init(options);
 gl.viewportWidth = 1280;
 gl.viewportHeight = 720;

@@ -13,7 +13,7 @@ namespace gles2impl {
 
 GLFWwindow* window;
 
-string init(int width, int height) {
+string init(int width, int height, bool fullscreen, std::string title) {
   printf("initializing GLEW\n");
 
   if (!glfwInit()) {
@@ -21,7 +21,7 @@ string init(int width, int height) {
   }
 
   /* Create a windowed mode window and its OpenGL context */
-  window = glfwCreateWindow(width, height, "", NULL, NULL);
+  window = glfwCreateWindow(width, height, title.c_str(), fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
   if (!window) {
       return string("Can't create window.");
   }
@@ -38,6 +38,7 @@ void blit() {
   //glfwWindowShouldClose(window)?
 
   glfwSwapBuffers(window);
+  glfwPollEvents();
 }
 
 void cleanup() {

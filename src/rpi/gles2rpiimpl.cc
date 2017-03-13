@@ -23,7 +23,7 @@ EGLDisplay  egl_display;
 EGLContext  egl_context;
 EGLSurface  egl_surface;
 
-string init(int width, int height) {
+string init(int width, int height, bool fullscreen, std::string title) {
   printf("initializing DISPMANX & EGL\n");
 
   bcm_host_init();

@@ -53,3 +53,10 @@ Windows: glew32.lib opengl32.lib
 
 A couple of more elaborate examples can be found in the examples folder.
 
+# Options
+| Name          | Description            |
+| ------------- |:----------------------:|
+| width         | viewport width in px   |
+| height        | viewport height in px  |
+| fullscreen    | window or fullscreen?  |
+| title         | window title  |
