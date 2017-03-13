@@ -115,8 +115,10 @@ string init(int width, int height, bool fullscreen, std::string title) {
   return string("");
 }
 
-void blit() {
-  eglSwapBuffers ( egl_display, egl_surface );  // get the rendered buffer to the screen
+void nextFrame(bool swapBuffers) {
+  if (swapBuffers) {
+    eglSwapBuffers ( egl_display, egl_surface );  // get the rendered buffer to the screen
+  }
 }
 
 void cleanup() {

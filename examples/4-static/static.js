@@ -15,10 +15,15 @@ function webGLStart() {
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.enable(gl.DEPTH_TEST);
 
-    setTimeout(function() {
+    var first = true;
+    setInterval(function() {
         drawScene();
-        gles2.blit();
-    }, 2000);
+
+        // Only draw the first frame.
+        gles2.nextFrame(first);
+
+        first = false;
+    }, 16);
 
     setTimeout(function() {}, 10000);
 }

@@ -18,7 +18,7 @@ function webGLStart() {
     while(true) {
         drawScene();
         animate();
-        gles2.blit();
+        gles2.nextFrame();
     }
 }
 

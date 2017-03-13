@@ -10,10 +10,10 @@ void init(Handle<Object> target)
   atexit(webgl::WebGLRenderingContext::AtExit);
 
   Nan::SetMethod(target, "init", gles2platform::init);
-  Nan::SetMethod(target, "blit", gles2platform::blit);
+  Nan::SetMethod(target, "nextFrame", gles2platform::nextFrame);
 
   webgl::WebGLRenderingContext::Initialize(target);
 }
 
-NODE_MODULE(gles2x11, init)
+NODE_MODULE(gles2, init)
 } // extern "C"

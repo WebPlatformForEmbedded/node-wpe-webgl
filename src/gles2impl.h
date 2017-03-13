@@ -6,7 +6,7 @@
 namespace gles2impl {
 
 	std::string init(int width, int height, bool fullscreen, std::string title);
-	void blit();
+	void nextFrame(bool drawBuffers);
 	void cleanup();
 
 }

@@ -13,13 +13,13 @@ var init = function(options) {
     return require('./lib/webgl').instance;
 };
 
-var blit = function() {
-    gles2.blit();
+var nextFrame = function(swapBuffers) {
+    gles2.nextFrame((swapBuffers !== false));
 };
 
 module.exports = {
     init: init,
-    blit: blit
+    nextFrame: nextFrame
 };
 
 

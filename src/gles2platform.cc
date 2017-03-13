@@ -28,10 +28,12 @@ NAN_METHOD(init) {
   info.GetReturnValue().Set(Nan::Undefined());
 }
 
-NAN_METHOD(blit) {
+NAN_METHOD(nextFrame) {
   Nan::HandleScope scope;
 
-  gles2impl::blit();
+  bool swapBuffers = info[0]->BooleanValue();
+
+  gles2impl::nextFrame(swapBuffers);
 
   info.GetReturnValue().Set(Nan::Undefined());
 }

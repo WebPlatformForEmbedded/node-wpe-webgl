@@ -13,9 +13,10 @@ var ival = setInterval(function() {
     // Clear the color buffer
     gl.clear(gl.COLOR_BUFFER_BIT);
 
-    gles2.blit();
+    gles2.nextFrame();
 
     if (count++ > 100) {
         clearInterval(ival);
+        gles2.stop();
     }
 }, 20);

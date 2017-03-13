@@ -8,22 +8,11 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include <uv.h>
-
 using namespace std;
 
 namespace gles2impl {
 
 GLFWwindow* window;
-
-void poll(void *arg) {
-  glfwMakeContextCurrent(window);
-  while(true) {
-    printf("poll\n");
-    glfwPollEvents();
-    usleep(10000); // Every 10msec.
-  }
-}
 
 string init(int width, int height, bool fullscreen, std::string title) {
   printf("initializing GLEW\n");
@@ -43,19 +32,19 @@ string init(int width, int height, bool fullscreen, std::string title) {
 
   glewInit();
 
-  // Start the events polling.
-  uv_thread_t pollThreadId;
-  int a = 0;
-  uv_thread_create(&pollThreadId, poll, &a);
-
   return string("");
 }
 
+void nextFrame(bool swapBuffers) {
+  if (glfwWindowShouldClose(window)) {
+    exit(0);
+  }
 
-void blit() {
-  //glfwWindowShouldClose(window)?
+  if (swapBuffers) {
+    glfwSwapBuffers(window);
+  }
 
-  glfwSwapBuffers(window);
+  glfwPollEvents();
 }
 
 void cleanup() {

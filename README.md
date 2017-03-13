@@ -48,7 +48,7 @@ Windows: glew32.lib opengl32.lib
 
         // Do other GL-related stuff here.
 
-        webgl.blit();
+        webgl.nextFrame(true /* Use false to prevent buffer swapping */);
     }
 
 A couple of more elaborate examples can be found in the examples folder.
