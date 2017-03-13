@@ -27,7 +27,9 @@ You can increase this to a higher number using raspi-config.
 ### Dependencies
 Linux: libglew-dev libglfw3-dev
 
-Mac OSX: ?
+Mac OSX: Use Homebrew
+    brew install pkg-config glfw3 glew
+For help with issues when installing pkg-config, see https://github.com/Automattic/node-canvas/wiki/Installation---OSX.
 
 Windows: glew32.lib opengl32.lib
 
@@ -59,4 +61,4 @@ A couple of more elaborate examples can be found in the examples folder.
 | width         | viewport width in px   |
 | height        | viewport height in px  |
 | fullscreen    | window or fullscreen?  |
-| title         | window title  |
+| title         | window title           |
