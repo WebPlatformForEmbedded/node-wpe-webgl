@@ -7,7 +7,7 @@
       ],
       'variables': {
         'platform': '<(OS)',
-        'has_glfw': '<!(pkg-config glfw3 --libs)',
+        'has_glfw': '<!(pkg-config glfw3 --libs || true | grep glfw)',
         'has_nexus': '<!(pkg-config glesv2 egl --libs || true | grep nexus)',
         'has_bcm': '<!(pkg-config glesv2 egl --libs || true | grep bcm)'
       },
