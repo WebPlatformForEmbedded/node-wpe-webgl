@@ -1,6 +1,7 @@
 #include <cstring>
 #include <vector>
 #include <iostream>
+#include <stdio.h>
 
 #include "../gles2impl.h"
 

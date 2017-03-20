@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <unistd.h>
+#include <stdio.h>
 
 #include "../gles2impl.h"
 
