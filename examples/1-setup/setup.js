@@ -17,6 +17,5 @@ var ival = setInterval(function() {
 
     if (count++ > 100) {
         clearInterval(ival);
-        gles2.stop();
     }
 }, 20);

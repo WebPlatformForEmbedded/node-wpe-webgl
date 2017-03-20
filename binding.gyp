@@ -7,24 +7,17 @@
       ],
       'variables': {
         'platform': '<(OS)',
-        'no_brcm_videocore%': '<!(ls /opt/vc/lib 2>&1 >/dev/null | wc -l)'
+        'has_glfw': '<!(pkg-config glfw3 --libs)',
+        'has_nexus': '<!(pkg-config glesv2 egl --libs | grep nexus)'
+        'has_bcm': '<!(pkg-config glesv2 egl --libs | grep bcm)'
       },
       'include_dirs': [
         "<!(node -e \"require('nan')\")",
         '<(module_root_dir)/deps/include',
+        '/opt/vc/include'
       ],
       'conditions': [
-        ['OS=="linux" and no_brcm_videocore==0', {
-          'sources': [
-            'src/rpi/gles2rpiimpl.cc',
-            'src/bindings.cc',
-            'src/gles2platform.cc',
-            'src/interface/webgl.cc'
-          ],
-          'libraries': ['/opt/vc/lib/libGLESv2.so', '/opt/vc/lib/libEGL.so', '/opt/vc/lib/libbcm_host.so'],
-          'include_dirs': ['/opt/vc/include']
-        }],
-        ['OS=="linux" and no_brcm_videocore==1', {
+        ['OS=="linux" and has_glfw!="")', {
           'sources': [
             'src/glew/gles2glewimpl.cc',
             'src/bindings.cc',
@@ -33,6 +26,26 @@
           ],
           'libraries': ['<!@(pkg-config --libs glfw3 glew)'],
           'defines': ['IS_GLEW']
+        }],
+        ['OS=="linux" and has_glfw=="" has_nexus!=""', {
+          'sources': [
+            'src/nexus/gles2nexusimpl.cc',
+            'src/bindings.cc',
+            'src/gles2platform.cc',
+            'src/interface/webgl.cc'
+          ],
+          'libraries': ['<!@(pkg-config --libs egl glesv2)']
+          'include_dirs': [ '<!@(pkg-config egl glesv2 --cflags-only-I | sed s/-I//g)']
+        }],
+        ['OS=="linux" and has_glfw=="" and has_nexus=="" and has_bcm!=""', {
+          'sources': [
+            'src/rpi/gles2rpiimpl.cc',
+            'src/bindings.cc',
+            'src/gles2platform.cc',
+            'src/interface/webgl.cc'
+          ],
+          'libraries': ['<!@(pkg-config --libs egl glesv2)']
+          'include_dirs': [ '<!@(pkg-config egl glesv2 --cflags-only-I | sed s/-I//g)']
         }],
         ['OS=="mac"', {
           'sources': [
