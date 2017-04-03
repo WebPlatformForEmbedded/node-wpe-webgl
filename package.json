@@ -19,5 +19,12 @@
   },
   "engines": {
     "node" : ">=4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:WebPlatformForEmbedded/node-wpe-webgl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/WebPlatformForEmbedded/node-wpe-webgl/issues"
   }
 }
