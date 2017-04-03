@@ -29,13 +29,16 @@
         }],
         ['OS=="linux" and has_glfw=="" and has_nexus!=""', {
           'sources': [
+            'src/nexus/Nexus.cc',
             'src/nexus/gles2nexusimpl.cc',
             'src/bindings.cc',
             'src/gles2platform.cc',
             'src/interface/webgl.cc'
           ],
           'libraries': ['<!@(pkg-config --libs egl glesv2)'],
-          'include_dirs': [ '<!@(pkg-config egl glesv2 --cflags-only-I | sed s/-I//g)' ]
+          'include_dirs': [ '<!@(pkg-config egl glesv2 --cflags-only-I | sed s/-I//g)' ],
+          'cflags': [ '-fPIC -std=c++11' ],
+          'defines': [ 'BCM_NEXUS_NXCLIENT' ]
         }],
         ['OS=="linux" and has_glfw=="" and has_nexus=="" and has_bcm!=""', {
           'sources': [
