@@ -33,8 +33,6 @@ namespace gles2impl {
     }
 
     void nextFrame(bool swapBuffers) {
-        cout << "Swap Buffers" << endl;
-
         if ((eglTarget != nullptr) && swapBuffers == true) {
             eglTarget->swapBuffer();
         }
