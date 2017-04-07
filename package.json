@@ -1,6 +1,6 @@
 {
   "author": "Metrological, Bas van Meurs <b.van.meurs@metrological.com>",
-  "name": "node-wpe-webgl",
+  "name": "wpe-webgl",
   "description": "Initializes a full-screen display on the RPi on which OpenGL ES2 graphics can be drawn using a WebGL-compliant interface.",
   "version": "0.0.2",
   "main": "gles2.js",
