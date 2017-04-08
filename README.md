@@ -41,7 +41,7 @@ For help with issues when installing pkg-config, see https://github.com/Automatt
 Windows: glew32.lib opengl32.lib
 
 # Example
-    var webgl = require('node-wpe-webgl');
+    var webgl = require('wpe-webgl');
 
     var options = {width: 1280, height: 720};
     var gl = webgl.init(options);
