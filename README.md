@@ -2,7 +2,7 @@ wpe-webgl
 =====
 
 [![npm version](https://badge.fury.io/js/wpe-webgl.svg)](https://badge.fury.io/js/wpe-webgl)
-[![npm](https://img.shields.io/npm/dt/wpe-webgl.svg)]()
+[![npm](https://img.shields.io/npm/dm/wpe-webgl.svg)]()
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=55UJZHTXW8VTE)
 
 Provides a WebGL rendering context for nodejs. It is displayed in a window or fullscreen, depending on your platform.
