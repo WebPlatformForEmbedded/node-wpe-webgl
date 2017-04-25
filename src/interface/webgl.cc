@@ -45,15 +45,11 @@ inline Type* getArrayData(Local<Value> arg, int* num = NULL) {
   if(!arg->IsNull()) {
     if(arg->IsArray()) {
       Nan::ThrowError("Not support array type");
-      /*
-      Local<Array> arr = Local<Array>::Cast(arg);
-      if(num) *num=arr->Length();
-      data = reinterpret_cast<Type*>(arr->GetIndexedPropertiesExternalArrayData());*/
     }
     else if(arg->IsObject()) {
-      Local<ArrayBufferView> arr = Local<ArrayBufferView>::Cast(arg);
-      if(num) *num=arr->ByteLength()/sizeof(Type);
-      data = reinterpret_cast<Type*>(arr->Buffer()->GetContents().Data());
+      Nan::TypedArrayContents<Type> p(arg);
+      data = *p;
+      if (num) *num = p.length();
     }
     else
       Nan::ThrowError("Bad array argument");
@@ -70,7 +66,6 @@ inline void *getImageData(Local<Value> arg) {
       Nan::ThrowError("Bad texture argument");
     }else if(obj->IsArrayBufferView()){
         int num;
-
         pixels = getArrayData<BYTE>(obj, &num);
     }else{
         pixels = node::Buffer::Data(Nan::Get(obj, JS_STR("data")).ToLocalChecked());
