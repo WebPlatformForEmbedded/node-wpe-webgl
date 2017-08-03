@@ -804,8 +804,10 @@ NAN_METHOD(WebGLRenderingContext::TexImage2D) {
   int type = info[7]->Int32Value();
   void *pixels=getImageData(info[8]);
 
-  WebGLRenderingContext* obj = ObjectWrap::Unwrap<WebGLRenderingContext>(info.Holder());
-  obj->preprocessTexImageData(pixels, width, height, format, type);
+  if (pixels) {
+    WebGLRenderingContext* obj = ObjectWrap::Unwrap<WebGLRenderingContext>(info.Holder());
+    obj->preprocessTexImageData(pixels, width, height, format, type);
+  }
 
   glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
 
@@ -1572,8 +1574,10 @@ NAN_METHOD(WebGLRenderingContext::TexSubImage2D) {
   GLenum type = info[7]->Int32Value();
   void *pixels=getImageData(info[8]);
 
-  WebGLRenderingContext* obj = ObjectWrap::Unwrap<WebGLRenderingContext>(info.Holder());
-  obj->preprocessTexImageData(pixels, width, height, format, type);
+  if (pixels) {
+    WebGLRenderingContext* obj = ObjectWrap::Unwrap<WebGLRenderingContext>(info.Holder());
+    obj->preprocessTexImageData(pixels, width, height, format, type);
+  }
 
   glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
 
