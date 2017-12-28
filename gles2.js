@@ -7,8 +7,9 @@ var init = function(options) {
     var height = (typeof options.height == "number" ? options.height : 720);
     var fullscreen = !!options.fullscreen;
     var title = options.title || "";
+    var layer = options.layer || 0;
 
-    gles2.init(width, height, fullscreen, title);
+    gles2.init(width, height, fullscreen, title, layer);
 
     return require('./lib/webgl').instance;
 };

@@ -24,7 +24,7 @@ EGLDisplay  egl_display;
 EGLContext  egl_context;
 EGLSurface  egl_surface;
 
-string init(int width, int height, bool fullscreen, std::string title) {
+string init(int width, int height, bool fullscreen, std::string title, unsigned int layer) {
   printf("initializing DISPMANX & EGL\n");
 
   bcm_host_init();
@@ -95,7 +95,7 @@ string init(int width, int height, bool fullscreen, std::string title) {
   dispman_update = vc_dispmanx_update_start( 0 );
 
   dispman_element = vc_dispmanx_element_add ( dispman_update, dispman_display,
-    0/*layer*/, &dst_rect, 0/*src*/,
+    layer, &dst_rect, 0/*src*/,
     &src_rect, DISPMANX_PROTECTION_NONE, 0 /*alpha*/, 0/*clamp*/, DISPMANX_NO_ROTATE/*transform*/);
 
   nativewindow.element = dispman_element;

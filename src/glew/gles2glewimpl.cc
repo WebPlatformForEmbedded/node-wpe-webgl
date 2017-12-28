@@ -15,7 +15,7 @@ namespace gles2impl {
 
 GLFWwindow* window;
 
-string init(int width, int height, bool fullscreen, std::string title) {
+string init(int width, int height, bool fullscreen, std::string title, unsigned int layer) {
   printf("initializing GLEW\n");
 
   if (!glfwInit()) {

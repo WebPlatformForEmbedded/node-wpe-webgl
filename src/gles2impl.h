@@ -5,7 +5,7 @@
 
 namespace gles2impl {
 
-	std::string init(int width, int height, bool fullscreen, std::string title);
+	std::string init(int width, int height, bool fullscreen, std::string title, unsigned int display);
 	void nextFrame(bool drawBuffers);
 	void cleanup();
 

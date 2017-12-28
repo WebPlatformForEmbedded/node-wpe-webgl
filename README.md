@@ -69,3 +69,4 @@ A couple of more elaborate examples can be found in the examples folder.
 | height        | viewport height in px  |
 | fullscreen    | window or fullscreen?  |
 | title         | window title           |
+| layer         | display layer (RPI only) |

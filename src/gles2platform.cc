@@ -19,8 +19,9 @@ NAN_METHOD(init) {
   bool fullscreen = info[2]->BooleanValue();
 
   Nan::Utf8String title(info[3]->ToString());
+  unsigned int layer = info[4]->Uint32Value();
 
-  std::string message = gles2impl::init(width, height, fullscreen, *title);
+  std::string message = gles2impl::init(width, height, fullscreen, *title, layer);
   if (message.size()) {
     Nan::ThrowRangeError(message.c_str());
   }
