@@ -1,4 +1,21 @@
 {
+   'conditions': [
+    ['OS=="win"', {
+      'variables': {
+        'has_glfw': 'true',
+        'has_nexus': '',
+        'has_bcm': '',
+        'has_raspbian': ''
+      }
+    }, {  # 'OS!="win"'
+      'variables': {
+        'has_glfw': '<!(pkg-config glfw3 --libs --silence-errors | grep glfw || true)',
+        'has_nexus': '<!(pkg-config glesv2 egl --libs --silence-errors | grep nexus || true)',
+        'has_bcm': '<!(pkg-config glesv2 egl --libs --silence-errors | grep bcm || true)',
+        'has_raspbian': '<!(PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/ pkg-config brcmglesv2 brcmegl --libs --silence-errors | grep bcm || true)'
+      }
+    }]
+  ],
   'targets': [
     {
       'target_name': 'gles2',
@@ -6,11 +23,7 @@
         'VERSION=0.0.1'
       ],
       'variables': {
-        'platform': '<(OS)',
-        'has_glfw': '<!(pkg-config glfw3 --libs --silence-errors | grep glfw || true)',
-        'has_nexus': '<!(pkg-config glesv2 egl --libs --silence-errors | grep nexus || true)',
-        'has_bcm': '<!(pkg-config glesv2 egl --libs --silence-errors | grep bcm || true)',
-        'has_raspbian': '<!(PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/ pkg-config brcmglesv2 brcmegl --libs --silence-errors | grep bcm || true)'
+        'platform': '<(OS)'
       },
       'include_dirs': [
         "<!(node -e \"require('nan')\")",
@@ -80,13 +93,21 @@
             'src/gles2platform.cc',
             'src/interface/webgl.cc'
           ],
-          'include_dirs': ['<(module_root_dir)/deps/include'],
-          'library_dirs': ['<(module_root_dir)/deps/windows/lib/<(target_arch)'],
-          'libraries': ['glew32.lib','opengl32.lib'],
+          'include_dirs': [
+            '<(module_root_dir)/deps/include',
+            '<(module_root_dir)/node_modules/node-glfw/deps/include',
+            '$(VC_VC_IncludePath)',
+            '$(UniversalCRT_IncludePath)'
+          ],
+          'library_dirs': [
+            '<(module_root_dir)/deps/windows/lib/<(target_arch)',
+            '<(module_root_dir)/node_modules/node-glfw/deps/windows/lib/<(target_arch)'
+          ],
+          'libraries': ['glew32.lib','glfw3dll.lib','opengl32.lib'],
           'defines' : ['IS_GLEW','WIN32_LEAN_AND_MEAN','VC_EXTRALEAN'],
           'msvs_settings' : {
             'VCCLCompilerTool' : {
-              'AdditionalOptions' : ['/O2','/Oy','/GL','/GF','/Gm-','/EHsc','/MT','/GS','/Gy','/GR-','/Gd']
+              'AdditionalOptions' : ['/Ox','/Oy','/GL','/GF','/Gm-','/EHsc','/MT','/GS','/Gy','/GR-','/Gd']
             },
             'VCLinkerTool' : {
               'AdditionalOptions' : ['/OPT:REF','/OPT:ICF','/LTCG']
