@@ -17,6 +17,9 @@
   "dependencies": {
     "nan": "^2.1.0"
   },
+  "devDependencies": {
+    "node-glfw": "^0.4.6"
+  },
   "engines": {
     "node" : ">=4.0.0"
   },
