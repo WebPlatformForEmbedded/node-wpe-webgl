@@ -13,7 +13,7 @@ namespace gles2impl {
 
     BCMNexus::EGLTarget *eglTarget;
 
-    string init(int width, int height, bool fullscreen, std::string title, int layer) {
+    string init(int width, int height, bool fullscreen, std::string title, unsigned int layer) {
         cout << "initializing BCM NEXUS & EGL" << endl;
 
         eglTarget = new BCMNexus::EGLTarget(BCMNexus::Backend::getInstance(), width, height, fullscreen, title);
