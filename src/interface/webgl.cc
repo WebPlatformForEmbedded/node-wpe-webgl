@@ -76,7 +76,7 @@ inline void *getImageData(Local<Value> arg) {
 
 Persistent<Function> WebGLRenderingContext::constructor_template;
 
-void WebGLRenderingContext::Initialize (Handle<Object> target) {
+void WebGLRenderingContext::Initialize (Local<Object> target) {
   Nan::HandleScope scope;
 
   // constructor
@@ -227,9 +227,9 @@ void WebGLRenderingContext::Initialize (Handle<Object> target) {
 
   Nan::SetPrototypeMethod(ctor, "frontFace", FrontFace);
 
-  Nan::Set(target, JS_STR("WebGLRenderingContext"), ctor->GetFunction());
+  Nan::Set(target, Nan::New("WebGLRenderingContext").ToLocalChecked(), ctor->GetFunction(ctx).ToLocalChecked());
 
-  constructor_template.Reset(Isolate::GetCurrent(), ctor->GetFunction());
+  constructor_template.Reset(Isolate::GetCurrent(), ctor->GetFunction(ctx).ToLocalChecked());
 }
 
 WebGLRenderingContext::WebGLRenderingContext() {
@@ -250,8 +250,8 @@ NAN_METHOD(WebGLRenderingContext::New) {
 NAN_METHOD(WebGLRenderingContext::Uniform1f) {
   Nan::HandleScope scope;
 
-  int location = info[0]->Int32Value();
-  float x = (float) info[1]->NumberValue();
+  int location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  float x = (float) info[1]->NumberValue(Nan::GetCurrentContext()).FromJust();
 
   glUniform1f(location, x);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -260,9 +260,9 @@ NAN_METHOD(WebGLRenderingContext::Uniform1f) {
 NAN_METHOD(WebGLRenderingContext::Uniform2f) {
   Nan::HandleScope scope;
 
-  int location = info[0]->Int32Value();
-  float x = (float) info[1]->NumberValue();
-  float y = (float) info[2]->NumberValue();
+  int location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  float x = (float) info[1]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  float y = (float) info[2]->NumberValue(Nan::GetCurrentContext()).FromJust();
 
   glUniform2f(location, x, y);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -271,10 +271,10 @@ NAN_METHOD(WebGLRenderingContext::Uniform2f) {
 NAN_METHOD(WebGLRenderingContext::Uniform3f) {
   Nan::HandleScope scope;
 
-  int location = info[0]->Int32Value();
-  float x = (float) info[1]->NumberValue();
-  float y = (float) info[2]->NumberValue();
-  float z = (float) info[3]->NumberValue();
+  int location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  float x = (float) info[1]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  float y = (float) info[2]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  float z = (float) info[3]->NumberValue(Nan::GetCurrentContext()).FromJust();
 
   glUniform3f(location, x, y, z);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -283,11 +283,11 @@ NAN_METHOD(WebGLRenderingContext::Uniform3f) {
 NAN_METHOD(WebGLRenderingContext::Uniform4f) {
   Nan::HandleScope scope;
 
-  int location = info[0]->Int32Value();
-  float x = (float) info[1]->NumberValue();
-  float y = (float) info[2]->NumberValue();
-  float z = (float) info[3]->NumberValue();
-  float w = (float) info[4]->NumberValue();
+  int location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  float x = (float) info[1]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  float y = (float) info[2]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  float z = (float) info[3]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  float w = (float) info[4]->NumberValue(Nan::GetCurrentContext()).FromJust();
 
   glUniform4f(location, x, y, z, w);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -296,8 +296,8 @@ NAN_METHOD(WebGLRenderingContext::Uniform4f) {
 NAN_METHOD(WebGLRenderingContext::Uniform1i) {
   Nan::HandleScope scope;
 
-  int location = info[0]->Int32Value();
-  int x = info[1]->Int32Value();
+  int location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int x = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glUniform1i(location, x);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -306,9 +306,9 @@ NAN_METHOD(WebGLRenderingContext::Uniform1i) {
 NAN_METHOD(WebGLRenderingContext::Uniform2i) {
   Nan::HandleScope scope;
 
-  int location = info[0]->Int32Value();
-  int x = info[1]->Int32Value();
-  int y = info[2]->Int32Value();
+  int location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int x = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int y = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glUniform2i(location, x, y);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -317,10 +317,10 @@ NAN_METHOD(WebGLRenderingContext::Uniform2i) {
 NAN_METHOD(WebGLRenderingContext::Uniform3i) {
   Nan::HandleScope scope;
 
-  int location = info[0]->Int32Value();
-  int x = info[1]->Int32Value();
-  int y = info[2]->Int32Value();
-  int z = info[3]->Int32Value();
+  int location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int x = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int y = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int z = info[3]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glUniform3i(location, x, y, z);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -329,11 +329,11 @@ NAN_METHOD(WebGLRenderingContext::Uniform3i) {
 NAN_METHOD(WebGLRenderingContext::Uniform4i) {
   Nan::HandleScope scope;
 
-  int location = info[0]->Int32Value();
-  int x = info[1]->Int32Value();
-  int y = info[2]->Int32Value();
-  int z = info[3]->Int32Value();
-  int w = info[4]->Int32Value();
+  int location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int x = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int y = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int z = info[3]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int w = info[4]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glUniform4i(location, x, y, z, w);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -342,7 +342,7 @@ NAN_METHOD(WebGLRenderingContext::Uniform4i) {
 NAN_METHOD(WebGLRenderingContext::Uniform1fv) {
   Nan::HandleScope scope;
 
-  int location = info[0]->Int32Value();
+  int location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
   int num=0;
   GLfloat *ptr=getArrayData<GLfloat>(info[1],&num);
   glUniform1fv(location, num, ptr);
@@ -352,7 +352,7 @@ NAN_METHOD(WebGLRenderingContext::Uniform1fv) {
 NAN_METHOD(WebGLRenderingContext::Uniform2fv) {
   Nan::HandleScope scope;
 
-  int location = info[0]->Int32Value();
+  int location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
   int num=0;
   GLfloat *ptr=getArrayData<GLfloat>(info[1],&num);
   num /= 2;
@@ -364,7 +364,7 @@ NAN_METHOD(WebGLRenderingContext::Uniform2fv) {
 NAN_METHOD(WebGLRenderingContext::Uniform3fv) {
   Nan::HandleScope scope;
 
-  int location = info[0]->Int32Value();
+  int location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
   int num=0;
   GLfloat *ptr=getArrayData<GLfloat>(info[1],&num);
   num /= 3;
@@ -376,7 +376,7 @@ NAN_METHOD(WebGLRenderingContext::Uniform3fv) {
 NAN_METHOD(WebGLRenderingContext::Uniform4fv) {
   Nan::HandleScope scope;
 
-  int location = info[0]->Int32Value();
+  int location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
   int num=0;
   GLfloat *ptr=getArrayData<GLfloat>(info[1],&num);
   num /= 4;
@@ -388,7 +388,7 @@ NAN_METHOD(WebGLRenderingContext::Uniform4fv) {
 NAN_METHOD(WebGLRenderingContext::Uniform1iv) {
   Nan::HandleScope scope;
 
-  int location = info[0]->Int32Value();
+  int location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
   int num=0;
   GLint *ptr=getArrayData<GLint>(info[1],&num);
 
@@ -399,7 +399,7 @@ NAN_METHOD(WebGLRenderingContext::Uniform1iv) {
 NAN_METHOD(WebGLRenderingContext::Uniform2iv) {
   Nan::HandleScope scope;
 
-  int location = info[0]->Int32Value();
+  int location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
   int num=0;
   GLint *ptr=getArrayData<GLint>(info[1],&num);
   num /= 2;
@@ -411,7 +411,7 @@ NAN_METHOD(WebGLRenderingContext::Uniform2iv) {
 NAN_METHOD(WebGLRenderingContext::Uniform3iv) {
   Nan::HandleScope scope;
 
-  int location = info[0]->Int32Value();
+  int location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
   int num=0;
   GLint *ptr=getArrayData<GLint>(info[1],&num);
   num /= 3;
@@ -422,7 +422,7 @@ NAN_METHOD(WebGLRenderingContext::Uniform3iv) {
 NAN_METHOD(WebGLRenderingContext::Uniform4iv) {
   Nan::HandleScope scope;
 
-  int location = info[0]->Int32Value();
+  int location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
   int num=0;
   GLint *ptr=getArrayData<GLint>(info[1],&num);
   num /= 4;
@@ -433,8 +433,8 @@ NAN_METHOD(WebGLRenderingContext::Uniform4iv) {
 NAN_METHOD(WebGLRenderingContext::PixelStorei) {
   Nan::HandleScope scope;
 
-  int pname = info[0]->Int32Value();
-  int param = info[1]->Int32Value();
+  int pname = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int param = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   if (pname == 0x9240 /* UNPACK_FLIP_Y_WEBGL */) {
     WebGLRenderingContext* obj = ObjectWrap::Unwrap<WebGLRenderingContext>(info.Holder());
@@ -455,9 +455,9 @@ NAN_METHOD(WebGLRenderingContext::PixelStorei) {
 NAN_METHOD(WebGLRenderingContext::BindAttribLocation) {
   Nan::HandleScope scope;
 
-  int program = info[0]->Int32Value();
-  int index = info[1]->Int32Value();
-  String::Utf8Value name(info[2]);
+  int program = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int index = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  Nan::Utf8String name(info[2]);
 
   glBindAttribLocation(program, index, *name);
 
@@ -475,9 +475,9 @@ NAN_METHOD(WebGLRenderingContext::GetError) {
 NAN_METHOD(WebGLRenderingContext::DrawArrays) {
   Nan::HandleScope scope;
 
-  int mode = info[0]->Int32Value();
-  int first = info[1]->Int32Value();
-  int count = info[2]->Int32Value();
+  int mode = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int first = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int count = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glDrawArrays(mode, first, count);
 
@@ -487,8 +487,8 @@ NAN_METHOD(WebGLRenderingContext::DrawArrays) {
 NAN_METHOD(WebGLRenderingContext::UniformMatrix2fv) {
   Nan::HandleScope scope;
 
-  GLint location = info[0]->Int32Value();
-  GLboolean transpose = info[1]->BooleanValue();
+  GLint location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLboolean transpose = Nan::To<bool>(info[1]).FromMaybe(true);
 
   GLsizei count=0;
   GLfloat* data=getArrayData<GLfloat>(info[2],&count);
@@ -505,8 +505,8 @@ NAN_METHOD(WebGLRenderingContext::UniformMatrix2fv) {
 NAN_METHOD(WebGLRenderingContext::UniformMatrix3fv) {
   Nan::HandleScope scope;
 
-  GLint location = info[0]->Int32Value();
-  GLboolean transpose = info[1]->BooleanValue();
+  GLint location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLboolean transpose = Nan::To<bool>(info[1]).FromMaybe(true);
   GLsizei count=0;
   GLfloat* data=getArrayData<GLfloat>(info[2],&count);
 
@@ -521,8 +521,8 @@ NAN_METHOD(WebGLRenderingContext::UniformMatrix3fv) {
 NAN_METHOD(WebGLRenderingContext::UniformMatrix4fv) {
   Nan::HandleScope scope;
 
-  GLint location = info[0]->Int32Value();
-  GLboolean transpose = info[1]->BooleanValue();
+  GLint location = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLboolean transpose = Nan::To<bool>(info[1]).FromMaybe(true);
   GLsizei count=0;
   GLfloat* data=getArrayData<GLfloat>(info[2],&count);
 
@@ -537,7 +537,7 @@ NAN_METHOD(WebGLRenderingContext::UniformMatrix4fv) {
 NAN_METHOD(WebGLRenderingContext::GenerateMipmap) {
   Nan::HandleScope scope;
 
-  GLint target = info[0]->Int32Value();
+  GLint target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
   glGenerateMipmap(target);
 
   info.GetReturnValue().Set(Nan::Undefined());
@@ -546,8 +546,8 @@ NAN_METHOD(WebGLRenderingContext::GenerateMipmap) {
 NAN_METHOD(WebGLRenderingContext::GetAttribLocation) {
   Nan::HandleScope scope;
 
-  int program = info[0]->Int32Value();
-  String::Utf8Value name(info[1]);
+  int program = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  Nan::Utf8String name(info[1]);
 
   info.GetReturnValue().Set(Nan::New<Number>(glGetAttribLocation(program, *name)));
 }
@@ -556,7 +556,7 @@ NAN_METHOD(WebGLRenderingContext::GetAttribLocation) {
 NAN_METHOD(WebGLRenderingContext::DepthFunc) {
   Nan::HandleScope scope;
 
-  glDepthFunc(info[0]->Int32Value());
+  glDepthFunc(info[0]->Int32Value(Nan::GetCurrentContext()).FromJust());
 
   info.GetReturnValue().Set(Nan::Undefined());
 }
@@ -565,10 +565,10 @@ NAN_METHOD(WebGLRenderingContext::DepthFunc) {
 NAN_METHOD(WebGLRenderingContext::Viewport) {
   Nan::HandleScope scope;
 
-  int x = info[0]->Int32Value();
-  int y = info[1]->Int32Value();
-  int width = info[2]->Int32Value();
-  int height = info[3]->Int32Value();
+  int x = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int y = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int width = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int height = info[3]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glViewport(x, y, width, height);
 
@@ -578,7 +578,7 @@ NAN_METHOD(WebGLRenderingContext::Viewport) {
 NAN_METHOD(WebGLRenderingContext::CreateShader) {
   Nan::HandleScope scope;
 
-  GLuint shader=glCreateShader(info[0]->Int32Value());
+  GLuint shader=glCreateShader(info[0]->Int32Value(Nan::GetCurrentContext()).FromJust());
   #ifdef LOGGING
   cout<<"createShader "<<shader<<endl;
   #endif
@@ -590,8 +590,8 @@ NAN_METHOD(WebGLRenderingContext::CreateShader) {
 NAN_METHOD(WebGLRenderingContext::ShaderSource) {
   Nan::HandleScope scope;
 
-  int id = info[0]->Int32Value();
-  String::Utf8Value code(info[1]);
+  int id = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  Nan::Utf8String code(info[1]);
 
   const char* codes[1];
   codes[0] = *code;
@@ -606,7 +606,7 @@ NAN_METHOD(WebGLRenderingContext::ShaderSource) {
 NAN_METHOD(WebGLRenderingContext::CompileShader) {
   Nan::HandleScope scope;
 
-  glCompileShader(info[0]->Int32Value());
+  glCompileShader(info[0]->Int32Value(Nan::GetCurrentContext()).FromJust());
 
   info.GetReturnValue().Set(Nan::Undefined());
 }
@@ -614,7 +614,7 @@ NAN_METHOD(WebGLRenderingContext::CompileShader) {
 NAN_METHOD(WebGLRenderingContext::FrontFace) {
   Nan::HandleScope scope;
 
-  glFrontFace(info[0]->Int32Value());
+  glFrontFace(info[0]->Int32Value(Nan::GetCurrentContext()).FromJust());
 
   info.GetReturnValue().Set(Nan::Undefined());
 }
@@ -623,8 +623,8 @@ NAN_METHOD(WebGLRenderingContext::FrontFace) {
 NAN_METHOD(WebGLRenderingContext::GetShaderParameter) {
   Nan::HandleScope scope;
 
-  int shader = info[0]->Int32Value();
-  int pname = info[1]->Int32Value();
+  int shader = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int pname = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
   int value = 0;
   switch (pname) {
   case GL_DELETE_STATUS:
@@ -650,7 +650,7 @@ NAN_METHOD(WebGLRenderingContext::GetShaderParameter) {
 NAN_METHOD(WebGLRenderingContext::GetShaderInfoLog) {
   Nan::HandleScope scope;
 
-  int id = info[0]->Int32Value();
+  int id = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
   int Len = 1024;
   char Error[1024];
   glGetShaderInfoLog(id, 1024, &Len, Error);
@@ -674,8 +674,8 @@ NAN_METHOD(WebGLRenderingContext::CreateProgram) {
 NAN_METHOD(WebGLRenderingContext::AttachShader) {
   Nan::HandleScope scope;
 
-  int program = info[0]->Int32Value();
-  int shader = info[1]->Int32Value();
+  int program = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int shader = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glAttachShader(program, shader);
 
@@ -686,7 +686,7 @@ NAN_METHOD(WebGLRenderingContext::AttachShader) {
 NAN_METHOD(WebGLRenderingContext::LinkProgram) {
   Nan::HandleScope scope;
 
-  glLinkProgram(info[0]->Int32Value());
+  glLinkProgram(info[0]->Int32Value(Nan::GetCurrentContext()).FromJust());
 
   info.GetReturnValue().Set(Nan::Undefined());
 }
@@ -695,8 +695,8 @@ NAN_METHOD(WebGLRenderingContext::LinkProgram) {
 NAN_METHOD(WebGLRenderingContext::GetProgramParameter) {
   Nan::HandleScope scope;
 
-  int program = info[0]->Int32Value();
-  int pname = info[1]->Int32Value();
+  int program = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int pname = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   int value = 0;
   switch (pname) {
@@ -722,8 +722,8 @@ NAN_METHOD(WebGLRenderingContext::GetProgramParameter) {
 NAN_METHOD(WebGLRenderingContext::GetUniformLocation) {
   Nan::HandleScope scope;
 
-  int program = info[0]->Int32Value();
-  v8::String::Utf8Value name(info[1]);
+  int program = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  Nan::Utf8String name(info[1]);
 
   info.GetReturnValue().Set(JS_INT(glGetUniformLocation(program, *name)));
 }
@@ -732,10 +732,10 @@ NAN_METHOD(WebGLRenderingContext::GetUniformLocation) {
 NAN_METHOD(WebGLRenderingContext::ClearColor) {
   Nan::HandleScope scope;
 
-  float red = (float) info[0]->NumberValue();
-  float green = (float) info[1]->NumberValue();
-  float blue = (float) info[2]->NumberValue();
-  float alpha = (float) info[3]->NumberValue();
+  float red = (float) info[0]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  float green = (float) info[1]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  float blue = (float) info[2]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  float alpha = (float) info[3]->NumberValue(Nan::GetCurrentContext()).FromJust();
 
   glClearColor(red, green, blue, alpha);
 
@@ -746,7 +746,7 @@ NAN_METHOD(WebGLRenderingContext::ClearColor) {
 NAN_METHOD(WebGLRenderingContext::ClearDepth) {
   Nan::HandleScope scope;
 
-  float depth = (float) info[0]->NumberValue();
+  float depth = (float) info[0]->NumberValue(Nan::GetCurrentContext()).FromJust();
 
   glClearDepthf(depth);
 
@@ -756,14 +756,14 @@ NAN_METHOD(WebGLRenderingContext::ClearDepth) {
 NAN_METHOD(WebGLRenderingContext::Disable) {
   Nan::HandleScope scope;
 
-  glDisable(info[0]->Int32Value());
+  glDisable(info[0]->Int32Value(Nan::GetCurrentContext()).FromJust());
   info.GetReturnValue().Set(Nan::Undefined());
 }
 
 NAN_METHOD(WebGLRenderingContext::Enable) {
   Nan::HandleScope scope;
 
-  glEnable(info[0]->Int32Value());
+  glEnable(info[0]->Int32Value(Nan::GetCurrentContext()).FromJust());
   info.GetReturnValue().Set(Nan::Undefined());
 }
 
@@ -784,8 +784,8 @@ NAN_METHOD(WebGLRenderingContext::CreateTexture) {
 NAN_METHOD(WebGLRenderingContext::BindTexture) {
   Nan::HandleScope scope;
 
-  int target = info[0]->Int32Value();
-  int texture = info[1]->IsNull() ? 0 : info[1]->Int32Value();
+  int target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int texture = info[1]->IsNull() ? 0 : info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glBindTexture(target, texture);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -794,14 +794,14 @@ NAN_METHOD(WebGLRenderingContext::BindTexture) {
 NAN_METHOD(WebGLRenderingContext::TexImage2D) {
   Nan::HandleScope scope;
 
-  int target = info[0]->Int32Value();
-  int level = info[1]->Int32Value();
-  int internalformat = info[2]->Int32Value();
-  int width = info[3]->Int32Value();
-  int height = info[4]->Int32Value();
-  int border = info[5]->Int32Value();
-  int format = info[6]->Int32Value();
-  int type = info[7]->Int32Value();
+  int target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int level = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int internalformat = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int width = info[3]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int height = info[4]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int border = info[5]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int format = info[6]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int type = info[7]->Int32Value(Nan::GetCurrentContext()).FromJust();
   void *pixels=getImageData(info[8]);
 
   if (pixels) {
@@ -818,9 +818,9 @@ NAN_METHOD(WebGLRenderingContext::TexImage2D) {
 NAN_METHOD(WebGLRenderingContext::TexParameteri) {
   Nan::HandleScope scope;
 
-  int target = info[0]->Int32Value();
-  int pname = info[1]->Int32Value();
-  int param = info[2]->Int32Value();
+  int target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int pname = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int param = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glTexParameteri(target, pname, param);
 
@@ -830,9 +830,9 @@ NAN_METHOD(WebGLRenderingContext::TexParameteri) {
 NAN_METHOD(WebGLRenderingContext::TexParameterf) {
   Nan::HandleScope scope;
 
-  int target = info[0]->Int32Value();
-  int pname = info[1]->Int32Value();
-  float param = (float) info[2]->NumberValue();
+  int target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int pname = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  float param = (float) info[2]->NumberValue(Nan::GetCurrentContext()).FromJust();
 
   glTexParameterf(target, pname, param);
 
@@ -843,7 +843,7 @@ NAN_METHOD(WebGLRenderingContext::TexParameterf) {
 NAN_METHOD(WebGLRenderingContext::Clear) {
   Nan::HandleScope scope;
 
-  glClear(info[0]->Int32Value());
+  glClear(info[0]->Int32Value(Nan::GetCurrentContext()).FromJust());
 
   info.GetReturnValue().Set(Nan::Undefined());
 }
@@ -852,7 +852,7 @@ NAN_METHOD(WebGLRenderingContext::Clear) {
 NAN_METHOD(WebGLRenderingContext::UseProgram) {
   Nan::HandleScope scope;
 
-  glUseProgram(info[0]->Int32Value());
+  glUseProgram(info[0]->Int32Value(Nan::GetCurrentContext()).FromJust());
 
   info.GetReturnValue().Set(Nan::Undefined());
 }
@@ -872,8 +872,8 @@ NAN_METHOD(WebGLRenderingContext::CreateBuffer) {
 NAN_METHOD(WebGLRenderingContext::BindBuffer) {
   Nan::HandleScope scope;
 
-  int target = info[0]->Int32Value();
-  int buffer = info[1]->Uint32Value();
+  int target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int buffer = info[1]->Uint32Value(Nan::GetCurrentContext()).FromJust();
   glBindBuffer(target,buffer);
 
   info.GetReturnValue().Set(Nan::Undefined());
@@ -896,8 +896,8 @@ NAN_METHOD(WebGLRenderingContext::CreateFramebuffer) {
 NAN_METHOD(WebGLRenderingContext::BindFramebuffer) {
   Nan::HandleScope scope;
 
-  int target = info[0]->Int32Value();
-  int buffer = info[1]->IsNull() ? 0 : info[1]->Int32Value();
+  int target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int buffer = info[1]->IsNull() ? 0 : info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glBindFramebuffer(target, buffer);
 
@@ -908,11 +908,11 @@ NAN_METHOD(WebGLRenderingContext::BindFramebuffer) {
 NAN_METHOD(WebGLRenderingContext::FramebufferTexture2D) {
   Nan::HandleScope scope;
 
-  int target = info[0]->Int32Value();
-  int attachment = info[1]->Int32Value();
-  int textarget = info[2]->Int32Value();
-  int texture = info[3]->Int32Value();
-  int level = info[4]->Int32Value();
+  int target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int attachment = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int textarget = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int texture = info[3]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int level = info[4]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glFramebufferTexture2D(target, attachment, textarget, texture, level);
 
@@ -922,10 +922,10 @@ NAN_METHOD(WebGLRenderingContext::FramebufferTexture2D) {
 NAN_METHOD(WebGLRenderingContext::BufferData) {
   Nan::HandleScope scope;
 
-  int target = info[0]->Int32Value();
+  int target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
   if(info[1]->IsObject()) {
     Local<Object> obj = Local<Object>::Cast(info[1]);
-    GLenum usage = info[2]->Int32Value();
+    GLenum usage = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
     CHECK_ARRAY_BUFFER(obj);
 
@@ -937,8 +937,8 @@ NAN_METHOD(WebGLRenderingContext::BufferData) {
     glBufferData(target, size, data, usage);
   }
   else if(info[1]->IsNumber()) {
-    GLsizeiptr size = info[1]->Uint32Value();
-    GLenum usage = info[2]->Int32Value();
+    GLsizeiptr size = info[1]->Uint32Value(Nan::GetCurrentContext()).FromJust();
+    GLenum usage = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
     glBufferData(target, size, NULL, usage);
   }
   info.GetReturnValue().Set(Nan::Undefined());
@@ -948,8 +948,8 @@ NAN_METHOD(WebGLRenderingContext::BufferData) {
 NAN_METHOD(WebGLRenderingContext::BufferSubData) {
   Nan::HandleScope scope;
 
-  int target = info[0]->Int32Value();
-  int offset = info[1]->Int32Value();
+  int target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int offset = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
   Local<Object> obj = Local<Object>::Cast(info[2]);
 
    int element_size = 1;
@@ -966,7 +966,7 @@ NAN_METHOD(WebGLRenderingContext::BufferSubData) {
 NAN_METHOD(WebGLRenderingContext::BlendEquation) {
   Nan::HandleScope scope;
 
-  int mode=info[0]->Int32Value();;
+  int mode=info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glBlendEquation(mode);
 
@@ -977,8 +977,8 @@ NAN_METHOD(WebGLRenderingContext::BlendEquation) {
 NAN_METHOD(WebGLRenderingContext::BlendFunc) {
   Nan::HandleScope scope;
 
-  int sfactor=info[0]->Int32Value();;
-  int dfactor=info[1]->Int32Value();;
+  int sfactor=info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int dfactor=info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glBlendFunc(sfactor,dfactor);
 
@@ -989,7 +989,7 @@ NAN_METHOD(WebGLRenderingContext::BlendFunc) {
 NAN_METHOD(WebGLRenderingContext::EnableVertexAttribArray) {
   Nan::HandleScope scope;
 
-  glEnableVertexAttribArray(info[0]->Int32Value());
+  glEnableVertexAttribArray(info[0]->Int32Value(Nan::GetCurrentContext()).FromJust());
 
   info.GetReturnValue().Set(Nan::Undefined());
 }
@@ -998,12 +998,12 @@ NAN_METHOD(WebGLRenderingContext::EnableVertexAttribArray) {
 NAN_METHOD(WebGLRenderingContext::VertexAttribPointer) {
   Nan::HandleScope scope;
 
-  int indx = info[0]->Int32Value();
-  int size = info[1]->Int32Value();
-  int type = info[2]->Int32Value();
-  int normalized = info[3]->BooleanValue();
-  int stride = info[4]->Int32Value();
-  long offset = info[5]->Int32Value();
+  int indx = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int size = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int type = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int normalized = Nan::To<bool>(info[3]).FromJust();
+  int stride = info[4]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  long offset = info[5]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   //    printf("VertexAttribPointer %d %d %d %d %d %d\n", indx, size, type, normalized, stride, offset);
   glVertexAttribPointer(indx, size, type, normalized, stride, (const GLvoid *)offset);
@@ -1015,7 +1015,7 @@ NAN_METHOD(WebGLRenderingContext::VertexAttribPointer) {
 NAN_METHOD(WebGLRenderingContext::ActiveTexture) {
   Nan::HandleScope scope;
 
-  glActiveTexture(info[0]->Int32Value());
+  glActiveTexture(info[0]->Int32Value(Nan::GetCurrentContext()).FromJust());
   info.GetReturnValue().Set(Nan::Undefined());
 }
 
@@ -1023,10 +1023,10 @@ NAN_METHOD(WebGLRenderingContext::ActiveTexture) {
 NAN_METHOD(WebGLRenderingContext::DrawElements) {
   Nan::HandleScope scope;
 
-  int mode = info[0]->Int32Value();
-  int count = info[1]->Int32Value();
-  int type = info[2]->Int32Value();
-  GLvoid *offset = reinterpret_cast<GLvoid*>(info[3]->Uint32Value());
+  int mode = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int count = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int type = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLvoid *offset = reinterpret_cast<GLvoid*>(info[3]->Uint32Value(Nan::GetCurrentContext()).FromJust());
   glDrawElements(mode, count, type, offset);
   info.GetReturnValue().Set(Nan::Undefined());
 }
@@ -1047,8 +1047,8 @@ NAN_METHOD(WebGLRenderingContext::Finish) {
 NAN_METHOD(WebGLRenderingContext::VertexAttrib1f) {
   Nan::HandleScope scope;
 
-  GLuint indx = info[0]->Int32Value();
-  float x = (float) info[1]->NumberValue();
+  GLuint indx = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  float x = (float) info[1]->NumberValue(Nan::GetCurrentContext()).FromJust();
 
   glVertexAttrib1f(indx, x);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1057,9 +1057,9 @@ NAN_METHOD(WebGLRenderingContext::VertexAttrib1f) {
 NAN_METHOD(WebGLRenderingContext::VertexAttrib2f) {
   Nan::HandleScope scope;
 
-  GLuint indx = info[0]->Int32Value();
-  float x = (float) info[1]->NumberValue();
-  float y = (float) info[2]->NumberValue();
+  GLuint indx = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  float x = (float) info[1]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  float y = (float) info[2]->NumberValue(Nan::GetCurrentContext()).FromJust();
 
   glVertexAttrib2f(indx, x, y);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1068,10 +1068,10 @@ NAN_METHOD(WebGLRenderingContext::VertexAttrib2f) {
 NAN_METHOD(WebGLRenderingContext::VertexAttrib3f) {
   Nan::HandleScope scope;
 
-  GLuint indx = info[0]->Int32Value();
-  float x = (float) info[1]->NumberValue();
-  float y = (float) info[2]->NumberValue();
-  float z = (float) info[3]->NumberValue();
+  GLuint indx = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  float x = (float) info[1]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  float y = (float) info[2]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  float z = (float) info[3]->NumberValue(Nan::GetCurrentContext()).FromJust();
 
   glVertexAttrib3f(indx, x, y, z);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1080,11 +1080,11 @@ NAN_METHOD(WebGLRenderingContext::VertexAttrib3f) {
 NAN_METHOD(WebGLRenderingContext::VertexAttrib4f) {
   Nan::HandleScope scope;
 
-  GLuint indx = info[0]->Int32Value();
-  float x = (float) info[1]->NumberValue();
-  float y = (float) info[2]->NumberValue();
-  float z = (float) info[3]->NumberValue();
-  float w = (float) info[4]->NumberValue();
+  GLuint indx = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  float x = (float) info[1]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  float y = (float) info[2]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  float z = (float) info[3]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  float w = (float) info[4]->NumberValue(Nan::GetCurrentContext()).FromJust();
 
   glVertexAttrib4f(indx, x, y, z, w);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1093,7 +1093,7 @@ NAN_METHOD(WebGLRenderingContext::VertexAttrib4f) {
 NAN_METHOD(WebGLRenderingContext::VertexAttrib1fv) {
   Nan::HandleScope scope;
 
-  int indx = info[0]->Int32Value();
+  int indx = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
   GLfloat *data = getArrayData<GLfloat>(info[1]);
   glVertexAttrib1fv(indx, data);
 
@@ -1103,7 +1103,7 @@ NAN_METHOD(WebGLRenderingContext::VertexAttrib1fv) {
 NAN_METHOD(WebGLRenderingContext::VertexAttrib2fv) {
   Nan::HandleScope scope;
 
-  int indx = info[0]->Int32Value();
+  int indx = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
   GLfloat *data = getArrayData<GLfloat>(info[1]);
   glVertexAttrib2fv(indx, data);
 
@@ -1113,7 +1113,7 @@ NAN_METHOD(WebGLRenderingContext::VertexAttrib2fv) {
 NAN_METHOD(WebGLRenderingContext::VertexAttrib3fv) {
   Nan::HandleScope scope;
 
-  int indx = info[0]->Int32Value();
+  int indx = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
   GLfloat *data = getArrayData<GLfloat>(info[1]);
   glVertexAttrib3fv(indx, data);
 
@@ -1123,7 +1123,7 @@ NAN_METHOD(WebGLRenderingContext::VertexAttrib3fv) {
 NAN_METHOD(WebGLRenderingContext::VertexAttrib4fv) {
   Nan::HandleScope scope;
 
-  int indx = info[0]->Int32Value();
+  int indx = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
   GLfloat *data = getArrayData<GLfloat>(info[1]);
   glVertexAttrib4fv(indx, data);
 
@@ -1133,10 +1133,10 @@ NAN_METHOD(WebGLRenderingContext::VertexAttrib4fv) {
 NAN_METHOD(WebGLRenderingContext::BlendColor) {
   Nan::HandleScope scope;
 
-  GLclampf r= (float) info[0]->NumberValue();
-  GLclampf g= (float) info[1]->NumberValue();
-  GLclampf b= (float) info[2]->NumberValue();
-  GLclampf a= (float) info[3]->NumberValue();
+  GLclampf r= (float) info[0]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  GLclampf g= (float) info[1]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  GLclampf b= (float) info[2]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  GLclampf a= (float) info[3]->NumberValue(Nan::GetCurrentContext()).FromJust();
 
   glBlendColor(r,g,b,a);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1145,8 +1145,8 @@ NAN_METHOD(WebGLRenderingContext::BlendColor) {
 NAN_METHOD(WebGLRenderingContext::BlendEquationSeparate) {
   Nan::HandleScope scope;
 
-  GLenum modeRGB= info[0]->Int32Value();
-  GLenum modeAlpha= info[1]->Int32Value();
+  GLenum modeRGB= info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum modeAlpha= info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glBlendEquationSeparate(modeRGB,modeAlpha);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1155,10 +1155,10 @@ NAN_METHOD(WebGLRenderingContext::BlendEquationSeparate) {
 NAN_METHOD(WebGLRenderingContext::BlendFuncSeparate) {
   Nan::HandleScope scope;
 
-  GLenum srcRGB= info[0]->Int32Value();
-  GLenum dstRGB= info[1]->Int32Value();
-  GLenum srcAlpha= info[2]->Int32Value();
-  GLenum dstAlpha= info[3]->Int32Value();
+  GLenum srcRGB= info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum dstRGB= info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum srcAlpha= info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum dstAlpha= info[3]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glBlendFuncSeparate(srcRGB,dstRGB,srcAlpha,dstAlpha);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1167,7 +1167,7 @@ NAN_METHOD(WebGLRenderingContext::BlendFuncSeparate) {
 NAN_METHOD(WebGLRenderingContext::ClearStencil) {
   Nan::HandleScope scope;
 
-  GLint s = info[0]->Int32Value();
+  GLint s = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glClearStencil(s);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1176,10 +1176,10 @@ NAN_METHOD(WebGLRenderingContext::ClearStencil) {
 NAN_METHOD(WebGLRenderingContext::ColorMask) {
   Nan::HandleScope scope;
 
-  GLboolean r = info[0]->BooleanValue();
-  GLboolean g = info[1]->BooleanValue();
-  GLboolean b = info[2]->BooleanValue();
-  GLboolean a = info[3]->BooleanValue();
+  GLboolean r = Nan::To<bool>(info[0]).FromJust();
+  GLboolean g = Nan::To<bool>(info[1]).FromJust();
+  GLboolean b = Nan::To<bool>(info[2]).FromJust();
+  GLboolean a = Nan::To<bool>(info[3]).FromJust();
 
   glColorMask(r,g,b,a);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1188,14 +1188,14 @@ NAN_METHOD(WebGLRenderingContext::ColorMask) {
 NAN_METHOD(WebGLRenderingContext::CopyTexImage2D) {
   Nan::HandleScope scope;
 
-  GLenum target = info[0]->Int32Value();
-  GLint level = info[1]->Int32Value();
-  GLenum internalformat = info[2]->Int32Value();
-  GLint x = info[3]->Int32Value();
-  GLint y = info[4]->Int32Value();
-  GLsizei width = info[5]->Int32Value();
-  GLsizei height = info[6]->Int32Value();
-  GLint border = info[7]->Int32Value();
+  GLenum target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLint level = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum internalformat = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLint x = info[3]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLint y = info[4]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLsizei width = info[5]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLsizei height = info[6]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLint border = info[7]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glCopyTexImage2D( target, level, internalformat, x, y, width, height, border);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1204,14 +1204,14 @@ NAN_METHOD(WebGLRenderingContext::CopyTexImage2D) {
 NAN_METHOD(WebGLRenderingContext::CopyTexSubImage2D) {
   Nan::HandleScope scope;
 
-  GLenum target = info[0]->Int32Value();
-  GLint level = info[1]->Int32Value();
-  GLint xoffset = info[2]->Int32Value();
-  GLint yoffset = info[3]->Int32Value();
-  GLint x = info[4]->Int32Value();
-  GLint y = info[5]->Int32Value();
-  GLsizei width = info[6]->Int32Value();
-  GLsizei height = info[7]->Int32Value();
+  GLenum target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLint level = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLint xoffset = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLint yoffset = info[3]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLint x = info[4]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLint y = info[5]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLsizei width = info[6]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLsizei height = info[7]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glCopyTexSubImage2D( target, level, xoffset, yoffset, x, y, width, height);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1220,7 +1220,7 @@ NAN_METHOD(WebGLRenderingContext::CopyTexSubImage2D) {
 NAN_METHOD(WebGLRenderingContext::CullFace) {
   Nan::HandleScope scope;
 
-  GLenum mode = info[0]->Int32Value();
+  GLenum mode = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glCullFace(mode);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1229,7 +1229,7 @@ NAN_METHOD(WebGLRenderingContext::CullFace) {
 NAN_METHOD(WebGLRenderingContext::DepthMask) {
   Nan::HandleScope scope;
 
-  GLboolean flag = info[0]->BooleanValue();
+  GLboolean flag = Nan::To<bool>(info[0]).FromJust();
 
   glDepthMask(flag);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1238,8 +1238,8 @@ NAN_METHOD(WebGLRenderingContext::DepthMask) {
 NAN_METHOD(WebGLRenderingContext::DepthRange) {
   Nan::HandleScope scope;
 
-  GLclampf zNear = (float) info[0]->NumberValue();
-  GLclampf zFar = (float) info[1]->NumberValue();
+  GLclampf zNear = (float) info[0]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  GLclampf zFar = (float) info[1]->NumberValue(Nan::GetCurrentContext()).FromJust();
 
   glDepthRangef(zNear, zFar);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1248,7 +1248,7 @@ NAN_METHOD(WebGLRenderingContext::DepthRange) {
 NAN_METHOD(WebGLRenderingContext::DisableVertexAttribArray) {
   Nan::HandleScope scope;
 
-  GLuint index = info[0]->Int32Value();
+  GLuint index = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glDisableVertexAttribArray(index);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1257,8 +1257,8 @@ NAN_METHOD(WebGLRenderingContext::DisableVertexAttribArray) {
 NAN_METHOD(WebGLRenderingContext::Hint) {
   Nan::HandleScope scope;
 
-  GLenum target = info[0]->Int32Value();
-  GLenum mode = info[1]->Int32Value();
+  GLenum target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum mode = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glHint(target, mode);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1267,7 +1267,7 @@ NAN_METHOD(WebGLRenderingContext::Hint) {
 NAN_METHOD(WebGLRenderingContext::IsEnabled) {
   Nan::HandleScope scope;
 
-  GLenum cap = info[0]->Int32Value();
+  GLenum cap = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   bool ret=glIsEnabled(cap)!=0;
   info.GetReturnValue().Set(Nan::New<Boolean>(ret));
@@ -1276,7 +1276,7 @@ NAN_METHOD(WebGLRenderingContext::IsEnabled) {
 NAN_METHOD(WebGLRenderingContext::LineWidth) {
   Nan::HandleScope scope;
 
-  GLfloat width = (float) info[0]->NumberValue();
+  GLfloat width = (float) info[0]->NumberValue(Nan::GetCurrentContext()).FromJust();
 
   glLineWidth(width);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1285,8 +1285,8 @@ NAN_METHOD(WebGLRenderingContext::LineWidth) {
 NAN_METHOD(WebGLRenderingContext::PolygonOffset) {
   Nan::HandleScope scope;
 
-  GLfloat factor = (float) info[0]->NumberValue();
-  GLfloat units = (float) info[1]->NumberValue();
+  GLfloat factor = (float) info[0]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  GLfloat units = (float) info[1]->NumberValue(Nan::GetCurrentContext()).FromJust();
 
   glPolygonOffset(factor, units);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1295,8 +1295,8 @@ NAN_METHOD(WebGLRenderingContext::PolygonOffset) {
 NAN_METHOD(WebGLRenderingContext::SampleCoverage) {
   Nan::HandleScope scope;
 
-  GLclampf value = (float) info[0]->NumberValue();
-  GLboolean invert = info[1]->BooleanValue();
+  GLclampf value = (float) info[0]->NumberValue(Nan::GetCurrentContext()).FromJust();
+  GLboolean invert = Nan::To<bool>(info[1]).FromJust();
 
   glSampleCoverage(value, invert);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1305,10 +1305,10 @@ NAN_METHOD(WebGLRenderingContext::SampleCoverage) {
 NAN_METHOD(WebGLRenderingContext::Scissor) {
   Nan::HandleScope scope;
 
-  GLint x = info[0]->Int32Value();
-  GLint y = info[1]->Int32Value();
-  GLsizei width = info[2]->Int32Value();
-  GLsizei height = info[3]->Int32Value();
+  GLint x = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLint y = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLsizei width = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLsizei height = info[3]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glScissor(x, y, width, height);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1317,9 +1317,9 @@ NAN_METHOD(WebGLRenderingContext::Scissor) {
 NAN_METHOD(WebGLRenderingContext::StencilFunc) {
   Nan::HandleScope scope;
 
-  GLenum func = info[0]->Int32Value();
-  GLint ref = info[1]->Int32Value();
-  GLuint mask = info[2]->Int32Value();
+  GLenum func = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLint ref = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLuint mask = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glStencilFunc(func, ref, mask);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1328,10 +1328,10 @@ NAN_METHOD(WebGLRenderingContext::StencilFunc) {
 NAN_METHOD(WebGLRenderingContext::StencilFuncSeparate) {
   Nan::HandleScope scope;
 
-  GLenum face = info[0]->Int32Value();
-  GLenum func = info[1]->Int32Value();
-  GLint ref = info[2]->Int32Value();
-  GLuint mask = info[3]->Int32Value();
+  GLenum face = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum func = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLint ref = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLuint mask = info[3]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glStencilFuncSeparate(face, func, ref, mask);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1340,7 +1340,7 @@ NAN_METHOD(WebGLRenderingContext::StencilFuncSeparate) {
 NAN_METHOD(WebGLRenderingContext::StencilMask) {
   Nan::HandleScope scope;
 
-  GLuint mask = info[0]->Uint32Value();
+  GLuint mask = info[0]->Uint32Value(Nan::GetCurrentContext()).FromJust();
 
   glStencilMask(mask);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1349,8 +1349,8 @@ NAN_METHOD(WebGLRenderingContext::StencilMask) {
 NAN_METHOD(WebGLRenderingContext::StencilMaskSeparate) {
   Nan::HandleScope scope;
 
-  GLenum face = info[0]->Int32Value();
-  GLuint mask = info[1]->Uint32Value();
+  GLenum face = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLuint mask = info[1]->Uint32Value(Nan::GetCurrentContext()).FromJust();
 
   glStencilMaskSeparate(face, mask);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1359,9 +1359,9 @@ NAN_METHOD(WebGLRenderingContext::StencilMaskSeparate) {
 NAN_METHOD(WebGLRenderingContext::StencilOp) {
   Nan::HandleScope scope;
 
-  GLenum fail = info[0]->Int32Value();
-  GLenum zfail = info[1]->Int32Value();
-  GLenum zpass = info[2]->Int32Value();
+  GLenum fail = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum zfail = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum zpass = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glStencilOp(fail, zfail, zpass);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1370,10 +1370,10 @@ NAN_METHOD(WebGLRenderingContext::StencilOp) {
 NAN_METHOD(WebGLRenderingContext::StencilOpSeparate) {
   Nan::HandleScope scope;
 
-  GLenum face = info[0]->Int32Value();
-  GLenum fail = info[1]->Int32Value();
-  GLenum zfail = info[2]->Int32Value();
-  GLenum zpass = info[3]->Int32Value();
+  GLenum face = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum fail = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum zfail = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum zpass = info[3]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glStencilOpSeparate(face, fail, zfail, zpass);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1382,8 +1382,8 @@ NAN_METHOD(WebGLRenderingContext::StencilOpSeparate) {
 NAN_METHOD(WebGLRenderingContext::BindRenderbuffer) {
   Nan::HandleScope scope;
 
-  GLenum target = info[0]->Int32Value();
-  GLuint buffer = info[1]->IsNull() ? 0 : info[1]->Int32Value();
+  GLenum target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLuint buffer = info[1]->IsNull() ? 0 : info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   glBindRenderbuffer(target, buffer);
 
@@ -1405,7 +1405,7 @@ NAN_METHOD(WebGLRenderingContext::CreateRenderbuffer) {
 NAN_METHOD(WebGLRenderingContext::DeleteBuffer) {
   Nan::HandleScope scope;
 
-  GLuint buffer = info[0]->Uint32Value();
+  GLuint buffer = info[0]->Uint32Value(Nan::GetCurrentContext()).FromJust();
 
   glDeleteBuffers(1,&buffer);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1414,7 +1414,7 @@ NAN_METHOD(WebGLRenderingContext::DeleteBuffer) {
 NAN_METHOD(WebGLRenderingContext::DeleteFramebuffer) {
   Nan::HandleScope scope;
 
-  GLuint buffer = info[0]->Uint32Value();
+  GLuint buffer = info[0]->Uint32Value(Nan::GetCurrentContext()).FromJust();
 
   glDeleteFramebuffers(1,&buffer);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1423,7 +1423,7 @@ NAN_METHOD(WebGLRenderingContext::DeleteFramebuffer) {
 NAN_METHOD(WebGLRenderingContext::DeleteProgram) {
   Nan::HandleScope scope;
 
-  GLuint program = info[0]->Uint32Value();
+  GLuint program = info[0]->Uint32Value(Nan::GetCurrentContext()).FromJust();
 
   glDeleteProgram(program);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1432,7 +1432,7 @@ NAN_METHOD(WebGLRenderingContext::DeleteProgram) {
 NAN_METHOD(WebGLRenderingContext::DeleteRenderbuffer) {
   Nan::HandleScope scope;
 
-  GLuint renderbuffer = info[0]->Uint32Value();
+  GLuint renderbuffer = info[0]->Uint32Value(Nan::GetCurrentContext()).FromJust();
 
   glDeleteRenderbuffers(1, &renderbuffer);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1441,7 +1441,7 @@ NAN_METHOD(WebGLRenderingContext::DeleteRenderbuffer) {
 NAN_METHOD(WebGLRenderingContext::DeleteShader) {
   Nan::HandleScope scope;
 
-  GLuint shader = info[0]->Uint32Value();
+  GLuint shader = info[0]->Uint32Value(Nan::GetCurrentContext()).FromJust();
 
   glDeleteShader(shader);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1450,7 +1450,7 @@ NAN_METHOD(WebGLRenderingContext::DeleteShader) {
 NAN_METHOD(WebGLRenderingContext::DeleteTexture) {
   Nan::HandleScope scope;
 
-  GLuint texture = info[0]->Uint32Value();
+  GLuint texture = info[0]->Uint32Value(Nan::GetCurrentContext()).FromJust();
 
   glDeleteTextures(1,&texture);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1459,8 +1459,8 @@ NAN_METHOD(WebGLRenderingContext::DeleteTexture) {
 NAN_METHOD(WebGLRenderingContext::DetachShader) {
   Nan::HandleScope scope;
 
-  GLuint program = info[0]->Uint32Value();
-  GLuint shader = info[1]->Uint32Value();
+  GLuint program = info[0]->Uint32Value(Nan::GetCurrentContext()).FromJust();
+  GLuint shader = info[1]->Uint32Value(Nan::GetCurrentContext()).FromJust();
 
   glDetachShader(program, shader);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1469,10 +1469,10 @@ NAN_METHOD(WebGLRenderingContext::DetachShader) {
 NAN_METHOD(WebGLRenderingContext::FramebufferRenderbuffer) {
   Nan::HandleScope scope;
 
-  GLenum target = info[0]->Int32Value();
-  GLenum attachment = info[1]->Int32Value();
-  GLenum renderbuffertarget = info[2]->Int32Value();
-  GLuint renderbuffer = info[3]->Uint32Value();
+  GLenum target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum attachment = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum renderbuffertarget = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLuint renderbuffer = info[3]->Uint32Value(Nan::GetCurrentContext()).FromJust();
 
   glFramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1481,8 +1481,8 @@ NAN_METHOD(WebGLRenderingContext::FramebufferRenderbuffer) {
 NAN_METHOD(WebGLRenderingContext::GetVertexAttribOffset) {
   Nan::HandleScope scope;
 
-  GLuint index = info[0]->Uint32Value();
-  GLenum pname = info[1]->Int32Value();
+  GLuint index = info[0]->Uint32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum pname = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
   void *ret=NULL;
 
   glGetVertexAttribPointerv(index, pname, &ret);
@@ -1492,46 +1492,46 @@ NAN_METHOD(WebGLRenderingContext::GetVertexAttribOffset) {
 NAN_METHOD(WebGLRenderingContext::IsBuffer) {
   Nan::HandleScope scope;
 
-  info.GetReturnValue().Set(Nan::New<Boolean>(glIsBuffer(info[0]->Uint32Value())!=0));
+  info.GetReturnValue().Set(Nan::New<Boolean>(glIsBuffer(info[0]->Uint32Value(Nan::GetCurrentContext()).FromJust())!=0));
 }
 
 NAN_METHOD(WebGLRenderingContext::IsFramebuffer) {
   Nan::HandleScope scope;
 
-  info.GetReturnValue().Set(JS_BOOL(glIsFramebuffer(info[0]->Uint32Value())!=0));
+  info.GetReturnValue().Set(JS_BOOL(glIsFramebuffer(info[0]->Uint32Value(Nan::GetCurrentContext()).FromJust())!=0));
 }
 
 NAN_METHOD(WebGLRenderingContext::IsProgram) {
   Nan::HandleScope scope;
 
-  info.GetReturnValue().Set(JS_BOOL(glIsProgram(info[0]->Uint32Value())!=0));
+  info.GetReturnValue().Set(JS_BOOL(glIsProgram(info[0]->Uint32Value(Nan::GetCurrentContext()).FromJust())!=0));
 }
 
 NAN_METHOD(WebGLRenderingContext::IsRenderbuffer) {
   Nan::HandleScope scope;
 
-  info.GetReturnValue().Set(JS_BOOL(glIsRenderbuffer( info[0]->Uint32Value())!=0));
+  info.GetReturnValue().Set(JS_BOOL(glIsRenderbuffer( info[0]->Uint32Value(Nan::GetCurrentContext()).FromJust())!=0));
 }
 
 NAN_METHOD(WebGLRenderingContext::IsShader) {
   Nan::HandleScope scope;
 
-  info.GetReturnValue().Set(JS_BOOL(glIsShader(info[0]->Uint32Value())!=0));
+  info.GetReturnValue().Set(JS_BOOL(glIsShader(info[0]->Uint32Value(Nan::GetCurrentContext()).FromJust())!=0));
 }
 
 NAN_METHOD(WebGLRenderingContext::IsTexture) {
   Nan::HandleScope scope;
 
-  info.GetReturnValue().Set(JS_BOOL(glIsTexture(info[0]->Uint32Value())!=0));
+  info.GetReturnValue().Set(JS_BOOL(glIsTexture(info[0]->Uint32Value(Nan::GetCurrentContext()).FromJust())!=0));
 }
 
 NAN_METHOD(WebGLRenderingContext::RenderbufferStorage) {
   Nan::HandleScope scope;
 
-  GLenum target = info[0]->Int32Value();
-  GLenum internalformat = info[1]->Int32Value();
-  GLsizei width = info[2]->Uint32Value();
-  GLsizei height = info[3]->Uint32Value();
+  GLenum target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum internalformat = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLsizei width = info[2]->Uint32Value(Nan::GetCurrentContext()).FromJust();
+  GLsizei height = info[3]->Uint32Value(Nan::GetCurrentContext()).FromJust();
 
   glRenderbufferStorage(target, internalformat, width, height);
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1540,7 +1540,7 @@ NAN_METHOD(WebGLRenderingContext::RenderbufferStorage) {
 NAN_METHOD(WebGLRenderingContext::GetShaderSource) {
   Nan::HandleScope scope;
 
-  int shader = info[0]->Int32Value();
+  int shader = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   GLint len;
   glGetShaderiv(shader, GL_SHADER_SOURCE_LENGTH, &len);
@@ -1556,7 +1556,7 @@ NAN_METHOD(WebGLRenderingContext::GetShaderSource) {
 NAN_METHOD(WebGLRenderingContext::ValidateProgram) {
   Nan::HandleScope scope;
 
-  glValidateProgram(info[0]->Int32Value());
+  glValidateProgram(info[0]->Int32Value(Nan::GetCurrentContext()).FromJust());
 
   info.GetReturnValue().Set(Nan::Undefined());
 }
@@ -1564,14 +1564,14 @@ NAN_METHOD(WebGLRenderingContext::ValidateProgram) {
 NAN_METHOD(WebGLRenderingContext::TexSubImage2D) {
   Nan::HandleScope scope;
 
-  GLenum target = info[0]->Int32Value();
-  GLint level = info[1]->Int32Value();
-  GLint xoffset = info[2]->Int32Value();
-  GLint yoffset = info[3]->Int32Value();
-  GLsizei width = info[4]->Int32Value();
-  GLsizei height = info[5]->Int32Value();
-  GLenum format = info[6]->Int32Value();
-  GLenum type = info[7]->Int32Value();
+  GLenum target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLint level = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLint xoffset = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLint yoffset = info[3]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLsizei width = info[4]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLsizei height = info[5]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum format = info[6]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum type = info[7]->Int32Value(Nan::GetCurrentContext()).FromJust();
   void *pixels=getImageData(info[8]);
 
   if (pixels) {
@@ -1587,12 +1587,12 @@ NAN_METHOD(WebGLRenderingContext::TexSubImage2D) {
 NAN_METHOD(WebGLRenderingContext::ReadPixels) {
   Nan::HandleScope scope;
 
-  GLint x = info[0]->Int32Value();
-  GLint y = info[1]->Int32Value();
-  GLsizei width = info[2]->Int32Value();
-  GLsizei height = info[3]->Int32Value();
-  GLenum format = info[4]->Int32Value();
-  GLenum type = info[5]->Int32Value();
+  GLint x = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLint y = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLsizei width = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLsizei height = info[3]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum format = info[4]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum type = info[5]->Int32Value(Nan::GetCurrentContext()).FromJust();
   void *pixels=getImageData(info[6]);
 
   glReadPixels(x, y, width, height, format, type, pixels);
@@ -1603,8 +1603,8 @@ NAN_METHOD(WebGLRenderingContext::ReadPixels) {
 NAN_METHOD(WebGLRenderingContext::GetTexParameter) {
   Nan::HandleScope scope;
 
-  GLenum target = info[0]->Int32Value();
-  GLenum pname = info[1]->Int32Value();
+  GLenum target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum pname = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   GLint param_value=0;
   glGetTexParameteriv(target, pname, &param_value);
@@ -1615,8 +1615,8 @@ NAN_METHOD(WebGLRenderingContext::GetTexParameter) {
 NAN_METHOD(WebGLRenderingContext::GetActiveAttrib) {
   Nan::HandleScope scope;
 
-  GLuint program = info[0]->Int32Value();
-  GLuint index = info[1]->Int32Value();
+  GLuint program = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLuint index = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   char name[1024];
   GLsizei length=0;
@@ -1625,9 +1625,9 @@ NAN_METHOD(WebGLRenderingContext::GetActiveAttrib) {
   glGetActiveAttrib(program, index, 1024, &length, &size, &type, name);
 
   Local<Array> activeInfo = Nan::New<Array>(3);
-  activeInfo->Set(JS_STR("size"), JS_INT(size));
-  activeInfo->Set(JS_STR("type"), JS_INT((int)type));
-  activeInfo->Set(JS_STR("name"), JS_STR(name));
+  Nan::Set(activeInfo, JS_STR("size"), JS_INT(size));
+  Nan::Set(activeInfo, JS_STR("type"), JS_INT((int)type));
+  Nan::Set(activeInfo, JS_STR("name"), JS_STR(name));
 
   info.GetReturnValue().Set(activeInfo);
 }
@@ -1635,8 +1635,8 @@ NAN_METHOD(WebGLRenderingContext::GetActiveAttrib) {
 NAN_METHOD(WebGLRenderingContext::GetActiveUniform) {
   Nan::HandleScope scope;
 
-  GLuint program = info[0]->Int32Value();
-  GLuint index = info[1]->Int32Value();
+  GLuint program = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLuint index = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   char name[1024];
   GLsizei length=0;
@@ -1645,9 +1645,9 @@ NAN_METHOD(WebGLRenderingContext::GetActiveUniform) {
   glGetActiveUniform(program, index, 1024, &length, &size, &type, name);
 
   Local<Array> activeInfo = Nan::New<Array>(3);
-  activeInfo->Set(JS_STR("size"), JS_INT(size));
-  activeInfo->Set(JS_STR("type"), JS_INT((int)type));
-  activeInfo->Set(JS_STR("name"), JS_STR(name));
+  Nan::Set(activeInfo, JS_STR("size"), JS_INT(size));
+  Nan::Set(activeInfo, JS_STR("type"), JS_INT((int)type));
+  Nan::Set(activeInfo, JS_STR("name"), JS_STR(name));
 
   info.GetReturnValue().Set(activeInfo);
 }
@@ -1655,7 +1655,7 @@ NAN_METHOD(WebGLRenderingContext::GetActiveUniform) {
 NAN_METHOD(WebGLRenderingContext::GetAttachedShaders) {
   Nan::HandleScope scope;
 
-  GLuint program = info[0]->Int32Value();
+  GLuint program = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   GLuint shaders[1024];
   GLsizei count;
@@ -1663,7 +1663,7 @@ NAN_METHOD(WebGLRenderingContext::GetAttachedShaders) {
 
   Local<Array> shadersArr = Nan::New<Array>(count);
   for(int i=0;i<count;i++)
-    shadersArr->Set(i, JS_INT((int)shaders[i]));
+    Nan::Set(shadersArr, i, JS_INT((int)shaders[i]));
 
   info.GetReturnValue().Set(shadersArr);
 }
@@ -1671,7 +1671,7 @@ NAN_METHOD(WebGLRenderingContext::GetAttachedShaders) {
 NAN_METHOD(WebGLRenderingContext::GetParameter) {
   Nan::HandleScope scope;
 
-  GLenum name = info[0]->Int32Value();
+  GLenum name = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   switch(name) {
   case GL_BLEND:
@@ -1737,8 +1737,8 @@ NAN_METHOD(WebGLRenderingContext::GetParameter) {
     ::glGetIntegerv(name, params);
 
     Local<Array> arr=Nan::New<Array>(2);
-    arr->Set(0,JS_INT(params[0]));
-    arr->Set(1,JS_INT(params[1]));
+    Nan::Set(arr, 0, JS_INT(params[0]));
+    Nan::Set(arr, 1, JS_INT(params[1]));
     info.GetReturnValue().Set(arr);
     break;
   }
@@ -1750,10 +1750,10 @@ NAN_METHOD(WebGLRenderingContext::GetParameter) {
     ::glGetIntegerv(name, params);
 
     Local<Array> arr=Nan::New<Array>(4);
-    arr->Set(0,JS_INT(params[0]));
-    arr->Set(1,JS_INT(params[1]));
-    arr->Set(2,JS_INT(params[2]));
-    arr->Set(3,JS_INT(params[3]));
+    Nan::Set(arr, 0, JS_INT(params[0]));
+    Nan::Set(arr, 1, JS_INT(params[1]));
+    Nan::Set(arr, 2, JS_INT(params[2]));
+    Nan::Set(arr, 3, JS_INT(params[3]));
     info.GetReturnValue().Set(arr);
     break;
   }
@@ -1765,8 +1765,8 @@ NAN_METHOD(WebGLRenderingContext::GetParameter) {
     GLfloat params[2];
     ::glGetFloatv(name, params);
     Local<Array> arr=Nan::New<Array>(2);
-    arr->Set(0,JS_FLOAT(params[0]));
-    arr->Set(1,JS_FLOAT(params[1]));
+    Nan::Set(arr, 0, JS_FLOAT(params[0]));
+    Nan::Set(arr, 1, JS_FLOAT(params[1]));
     info.GetReturnValue().Set(arr);
     break;
   }
@@ -1777,10 +1777,10 @@ NAN_METHOD(WebGLRenderingContext::GetParameter) {
     GLfloat params[4];
     ::glGetFloatv(name, params);
     Local<Array> arr=Nan::New<Array>(4);
-    arr->Set(0,JS_FLOAT(params[0]));
-    arr->Set(1,JS_FLOAT(params[1]));
-    arr->Set(2,JS_FLOAT(params[2]));
-    arr->Set(3,JS_FLOAT(params[3]));
+    Nan::Set(arr, 0, JS_FLOAT(params[0]));
+    Nan::Set(arr, 1, JS_FLOAT(params[1]));
+    Nan::Set(arr, 2, JS_FLOAT(params[2]));
+    Nan::Set(arr, 3, JS_FLOAT(params[3]));
     info.GetReturnValue().Set(arr);
     break;
   }
@@ -1790,10 +1790,10 @@ NAN_METHOD(WebGLRenderingContext::GetParameter) {
     GLboolean params[4];
     ::glGetBooleanv(name, params);
     Local<Array> arr=Nan::New<Array>(4);
-    arr->Set(0,JS_BOOL(params[0]==1));
-    arr->Set(1,JS_BOOL(params[1]==1));
-    arr->Set(2,JS_BOOL(params[2]==1));
-    arr->Set(3,JS_BOOL(params[3]==1));
+    Nan::Set(arr, 0, JS_BOOL(params[0]==1));
+    Nan::Set(arr, 1, JS_BOOL(params[1]==1));
+    Nan::Set(arr, 2, JS_BOOL(params[2]==1));
+    Nan::Set(arr, 3, JS_BOOL(params[3]==1));
     info.GetReturnValue().Set(arr);
     break;
   }
@@ -1824,8 +1824,8 @@ NAN_METHOD(WebGLRenderingContext::GetParameter) {
 NAN_METHOD(WebGLRenderingContext::GetBufferParameter) {
   Nan::HandleScope scope;
 
-  GLenum target = info[0]->Int32Value();
-  GLenum pname = info[1]->Int32Value();
+  GLenum target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum pname = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   GLint params;
   glGetBufferParameteriv(target,pname,&params);
@@ -1835,9 +1835,9 @@ NAN_METHOD(WebGLRenderingContext::GetBufferParameter) {
 NAN_METHOD(WebGLRenderingContext::GetFramebufferAttachmentParameter) {
   Nan::HandleScope scope;
 
-  GLenum target = info[0]->Int32Value();
-  GLenum attachment = info[1]->Int32Value();
-  GLenum pname = info[2]->Int32Value();
+  GLenum target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum attachment = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLenum pname = info[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   GLint params;
   glGetFramebufferAttachmentParameteriv(target,attachment, pname,&params);
@@ -1847,7 +1847,7 @@ NAN_METHOD(WebGLRenderingContext::GetFramebufferAttachmentParameter) {
 NAN_METHOD(WebGLRenderingContext::GetProgramInfoLog) {
   Nan::HandleScope scope;
 
-  GLuint program = info[0]->Int32Value();
+  GLuint program = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
   int Len = 1024;
   char Error[1024];
   glGetProgramInfoLog(program, 1024, &Len, Error);
@@ -1858,8 +1858,8 @@ NAN_METHOD(WebGLRenderingContext::GetProgramInfoLog) {
 NAN_METHOD(WebGLRenderingContext::GetRenderbufferParameter) {
   Nan::HandleScope scope;
 
-  int target = info[0]->Int32Value();
-  int pname = info[1]->Int32Value();
+  int target = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  int pname = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
   int value = 0;
   glGetRenderbufferParameteriv(target,pname,&value);
 
@@ -1869,8 +1869,8 @@ NAN_METHOD(WebGLRenderingContext::GetRenderbufferParameter) {
 NAN_METHOD(WebGLRenderingContext::GetVertexAttrib) {
   Nan::HandleScope scope;
 
-  GLuint index = info[0]->Int32Value();
-  GLuint pname = info[1]->Int32Value();
+  GLuint index = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+  GLuint pname = info[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   GLint value=0;
 
@@ -1894,10 +1894,10 @@ NAN_METHOD(WebGLRenderingContext::GetVertexAttrib) {
     float vextex_attribs[4];
     glGetVertexAttribfv(index,pname,vextex_attribs);
     Local<Array> arr=Nan::New<Array>(4);
-    arr->Set(0,JS_FLOAT(vextex_attribs[0]));
-    arr->Set(1,JS_FLOAT(vextex_attribs[1]));
-    arr->Set(2,JS_FLOAT(vextex_attribs[2]));
-    arr->Set(3,JS_FLOAT(vextex_attribs[3]));
+    Nan::Set(arr, 0, JS_FLOAT(vextex_attribs[0]));
+    Nan::Set(arr, 1, JS_FLOAT(vextex_attribs[1]));
+    Nan::Set(arr, 2, JS_FLOAT(vextex_attribs[2]));
+    Nan::Set(arr, 3, JS_FLOAT(vextex_attribs[3]));
     info.GetReturnValue().Set(arr);
     break;
   }
@@ -1920,7 +1920,7 @@ NAN_METHOD(WebGLRenderingContext::GetSupportedExtensions) {
 NAN_METHOD(WebGLRenderingContext::GetExtension) {
   Nan::HandleScope scope;
 
-  String::Utf8Value name(info[0]);
+  Nan::Utf8String name(info[0]);
   char *sname=*name;
   char *extensions=(char*) glGetString(GL_EXTENSIONS);
   char *ext=strcasestr(extensions, sname);
@@ -1935,7 +1935,7 @@ NAN_METHOD(WebGLRenderingContext::GetExtension) {
 NAN_METHOD(WebGLRenderingContext::CheckFramebufferStatus) {
   Nan::HandleScope scope;
 
-  GLenum target=info[0]->Int32Value();
+  GLenum target=info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
 
   info.GetReturnValue().Set(JS_INT((int)glCheckFramebufferStatus(target)));
 }
