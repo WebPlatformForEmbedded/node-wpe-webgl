@@ -125,7 +125,7 @@ function initTexture() {
     var Canvas = require('canvas');
     var img = new Canvas.Image();
     img.src = res;
-    var canvas = new Canvas(img.width, img.height);
+    var canvas = Canvas.createCanvas(img.width, img.height);
     var ctx = canvas.getContext('2d');
     ctx.drawImage(img, 0, 0, img.width, img.height);
 
@@ -385,6 +385,3 @@ function animate() {
 }
 
 webGLStart();
-
-
-

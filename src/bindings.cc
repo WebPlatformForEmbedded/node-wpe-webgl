@@ -4,7 +4,7 @@
 #include "interface/webgl.h"
 
 extern "C" {
-void init(Handle<Object> target)
+void init(Local<Object> target)
 {
   atexit(gles2platform::AtExit);
   atexit(webgl::WebGLRenderingContext::AtExit);

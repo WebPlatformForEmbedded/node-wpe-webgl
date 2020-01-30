@@ -1,8 +1,8 @@
 {
   "author": "Metrological, Bas van Meurs <b.van.meurs@metrological.com>",
   "name": "wpe-webgl",
-  "description": "Initializes a full-screen display on the RPi on which OpenGL ES2 graphics can be drawn using a WebGL-compliant interface.",
-  "version": "0.0.5",
+  "description": "Initializes a full-screen display under NodeJS on which OpenGL ES2 graphics can be drawn using a WebGL-compliant interface.",
+  "version": "0.0.6",
   "main": "gles2.js",
   "keywords": [
     "webgl",
@@ -13,12 +13,12 @@
     "pi",
     "x11"
   ],
-  "license" : "BSD-2-Clause",
-  "dependencies": {
-    "nan": "^2.1.0"
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "nan": "^2.14.0"
   },
   "engines": {
-    "node" : ">=4.0.0"
+    "node": ">=4.0.0"
   },
   "repository": {
     "type": "git",

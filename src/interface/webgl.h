@@ -26,7 +26,7 @@ typedef uint8_t BYTE;
 class WebGLRenderingContext : public ObjectWrap {
 public:
   explicit WebGLRenderingContext();
-  static void Initialize (Handle<Object> target);
+  static void Initialize (Local<Object> target);
   static void AtExit();
 
 protected:
